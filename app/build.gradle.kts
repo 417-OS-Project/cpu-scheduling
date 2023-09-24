@@ -8,6 +8,7 @@
 plugins {
     application
     jacoco
+    pmd
 }
 
 repositories {
@@ -15,10 +16,9 @@ repositories {
 }
 
 dependencies {
-    testImplementation("junit:junit:4.13.2")
-
-    // This dependency is used by the application.
     implementation("com.google.guava:guava:32.1.1-jre")
+
+    testImplementation("junit:junit:4.13.2")
 }
 
 // Apply a specific Java toolchain to ease working on different environments.
@@ -29,7 +29,6 @@ java {
 }
 
 application {
-    // Define the main class for the application.
     mainClass.set("cpuscheduling.App")
 }
 
@@ -49,4 +48,19 @@ tasks.jacocoTestReport {
 
 jacoco {
     toolVersion = "0.8.10"
+}
+
+/* Check Configurations */
+
+pmd {
+    toolVersion = "6.55.0"
+    isConsoleOutput = true
+}
+
+tasks.pmdMain {
+    ignoreFailures = true
+}
+
+tasks.pmdTest {
+    ignoreFailures = true
 }
