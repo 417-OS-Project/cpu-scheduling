@@ -7,9 +7,12 @@
 
 plugins {
     application
+
     jacoco
+
     pmd
     checkstyle
+    id("com.github.spotbugs") version "5.1.3"
 }
 
 repositories {
@@ -67,5 +70,9 @@ checkstyle {
 }
 
 tasks.withType<Checkstyle>().configureEach {
+    ignoreFailures = true
+}
+
+spotbugs {
     ignoreFailures = true
 }
