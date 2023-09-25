@@ -12,5 +12,8 @@ The types included are as follows:
 
 ## Sample Execution
 
+## Development Push/Merge Instructions
+Refer to [CONTRIBUTING.md](CONTRIBUTING.md)
+
 ## Tools Used
 
