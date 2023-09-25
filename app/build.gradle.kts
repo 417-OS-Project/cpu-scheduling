@@ -58,11 +58,7 @@ pmd {
     isConsoleOutput = true
 }
 
-tasks.pmdMain {
-    ignoreFailures = true
-}
-
-tasks.pmdTest {
+tasks.withType<Pmd>().configureEach {
     ignoreFailures = true
 }
 
@@ -70,10 +66,6 @@ checkstyle {
     toolVersion = "10.12.3" 
 }
 
-tasks.checkstyleMain {
-    ignoreFailures = true
-}
-
-tasks.checkstyleTest {
+tasks.withType<Checkstyle>().configureEach {
     ignoreFailures = true
 }
