@@ -9,6 +9,7 @@ plugins {
     application
     jacoco
     pmd
+    checkstyle
 }
 
 repositories {
@@ -62,5 +63,17 @@ tasks.pmdMain {
 }
 
 tasks.pmdTest {
+    ignoreFailures = true
+}
+
+checkstyle {
+    toolVersion = "10.12.3" 
+}
+
+tasks.checkstyleMain {
+    ignoreFailures = true
+}
+
+tasks.checkstyleTest {
     ignoreFailures = true
 }
