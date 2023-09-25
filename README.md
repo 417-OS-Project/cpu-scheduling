@@ -6,6 +6,7 @@ The types included are as follows:
 3. Priority with Preemption
 
 ## Requirements
+* [Java 11+](https://www.java.com/en/)
 
 ## Running Instructions
 
