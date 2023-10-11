@@ -59,8 +59,8 @@ spotless {
 }
 
 tasks.check {
-    // Auto format code before linting
-    dependsOn(tasks.spotlessApply)
+    // Check formatting before linting
+    dependsOn(tasks.spotlessCheck)
 }
 
 /* Check Configurations */
