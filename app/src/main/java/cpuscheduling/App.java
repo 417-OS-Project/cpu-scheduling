@@ -12,7 +12,7 @@ public class App {
   public static void main(String[] args) {
     try {
       File pFile = new File(args[0]);
-      Scanner fileScanner = new Scanner(pFile);
+      Scanner fileScanner = new Scanner(pFile, "UTF-8");
 
       while (fileScanner.hasNextLine()) {
         System.out.println(fileScanner.nextLine());
@@ -24,7 +24,7 @@ public class App {
       System.exit(-1);
     } catch (FileNotFoundException e) {
       System.out.println("Text file not provided");
-      System.exit(-2);
+      System.exit(-1);
     }
   }
 }
