@@ -9,6 +9,10 @@ public class App {
   }
 
   public static void main(String[] args) {
-    System.out.println(new App().getGreeting());
+    try {
+      System.out.println(args[0]);
+    } catch (ArrayIndexOutOfBoundsException e) {
+      System.out.println("File not provided");
+    }
   }
 }
