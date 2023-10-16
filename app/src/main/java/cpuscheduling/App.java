@@ -5,23 +5,28 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class App {
-  public String getGreeting() {
+  /**
+   * Parses the line provided to create Process objects.
+   *
+   * @param line containing the process information.
+   * @return Process object.
+   */
+  public String parseLine(String line) {
     return "Hello World!";
   }
 
   public static void main(String[] args) {
-    try {
-      File pFile = new File(args[0]);
-      Scanner fileScanner = new Scanner(pFile, "UTF-8");
+    boolean noArg = args.length < 1;
+    if (noArg) {
+      System.out.println("File not provided");
+      System.exit(-1);
+    }
+    File dFile = new File(args[0]);
 
+    try (Scanner fileScanner = new Scanner(dFile, "UTF-8")) {
       while (fileScanner.hasNextLine()) {
         System.out.println(fileScanner.nextLine());
       }
-
-      fileScanner.close();
-    } catch (ArrayIndexOutOfBoundsException e) {
-      System.out.println("File not provided");
-      System.exit(-1);
     } catch (FileNotFoundException e) {
       System.out.println("Text file not provided");
       System.exit(-1);
