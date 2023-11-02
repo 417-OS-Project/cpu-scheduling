@@ -2,6 +2,7 @@ plugins {
     application
 
     jacoco
+    id ("org.barfuin.gradle.jacocolog") version "3.1.0"
 
     id("com.diffplug.spotless") version "6.21.0"
 
