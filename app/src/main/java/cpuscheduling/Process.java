@@ -1,30 +1,26 @@
 package cpuscheduling;
 
-/**
- * Process class to store a process' data.
- */
+/** Process class to store a process' data. */
 public class Process {
 
-    /**
-     * The process id number.
-     */
-    private int pid;
+  /** Global counter for the process id number. */
+  private static int PID_COUNTER = 1;
 
-    /**
-     * Constructor for the Process class.
-     */
-    public Process() {
-        this.pid = 1;
-        // Set process ID number
-        // Increment process ID number for the next object
-    }
+  /** The process id number. */
+  private final int pid;
 
-    /**
-     * Get the pid.
-     *
-     * @return process id.
-     */
-    int pid() {
-        return this.pid;
-    }
+  /** Constructor for the Process class. */
+  public Process() {
+    this.pid = PID_COUNTER;
+    PID_COUNTER++;
+  }
+
+  /**
+   * Get the pid.
+   *
+   * @return process id.
+   */
+  int getPid() {
+    return this.pid;
+  }
 }

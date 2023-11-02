@@ -2,11 +2,8 @@ package cpuscheduling;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import cpuscheduling.Process;
 
 public class ProcessTest {
   static Process p1, p2;
@@ -19,7 +16,10 @@ public class ProcessTest {
 
   @Test
   public void testProcessID() {
-    assert p1.pid() == 1;
-    assert p2.pid() == 2;
+    assert p1.getPid() == 1;
+    assert p2.getPid() == 2;
+
+    Process p3 = new Process();
+    assert p3.getPid() == 3;
   }
 }
