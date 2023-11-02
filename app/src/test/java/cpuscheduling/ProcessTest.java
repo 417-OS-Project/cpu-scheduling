@@ -27,5 +27,8 @@ public class ProcessTest {
 
     p2.setBurstTime(3);
     assert p2.getBurstTime() == 3;
+
+    p1.setBurstTime(-23);
+    assert p1.getBurstTime() == 23;
   }
 }

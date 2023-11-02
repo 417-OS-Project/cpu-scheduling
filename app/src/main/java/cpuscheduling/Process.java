@@ -30,6 +30,10 @@ public class Process {
    * @param time required CPU burst time.
    */
   public void setBurstTime(int time) {
+    if (time < 0) {
+      this.burstTime = (time * -1);
+      return;
+    }
     this.burstTime = time;
   }
 }
