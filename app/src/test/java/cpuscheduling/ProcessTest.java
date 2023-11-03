@@ -16,10 +16,10 @@ public class ProcessTest {
 
   @Test
   public void testProcessID() {
-    assert p1.getPid() == 1;
-    assert p2.getPid() == 2;
+    assertEquals(1, p1.getPid());
+    assertEquals(2, p2.getPid());
 
     Process p3 = new Process();
-    assert p3.getPid() == 3;
+    assertEquals(3, p3.getPid());
   }
 }

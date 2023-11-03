@@ -20,7 +20,7 @@ public class Process {
    *
    * @return process id.
    */
-  int getPid() {
+  public int getPid() {
     return this.pid;
   }
 }
