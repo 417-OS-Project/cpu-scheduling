@@ -16,15 +16,26 @@ public class ProcessTest {
 
   @Test
   public void testProcessID() {
-    ;
+    assertEquals(1, p1.getPid());
+    assertEquals(2, p2.getPid());
+
+    Process p3 = new Process(3);
+    assertTrue(p3.getPid() > 2);
+
+    assertEquals(1, p1.getArrivalTime());
+    assertEquals(6, p2.getArrivalTime());
+    assertEquals(3, p3.getArrivalTime());
   }
 
   @Test
   public void testArrivalTime() {
-    assert p1.getArrivalTime() == 1;
-    assert p2.getArrivalTime() == 6;
+    assertEquals(1, p1.getArrivalTime());
+    assertEquals(6, p2.getArrivalTime());
+
+    assertEquals(1, p1.getPid());
+    assertEquals(2, p2.getPid());
 
     Process p3 = new Process(10);
-    assert p3.getArrivalTime() == 10;
+    assertEquals(10, p3.getArrivalTime());
   }
 }
