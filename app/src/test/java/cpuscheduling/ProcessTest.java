@@ -10,8 +10,8 @@ public class ProcessTest {
 
   @BeforeClass
   public static void setUp() {
-    p1 = new Process();
-    p2 = new Process();
+    p1 = new Process(1);
+    p2 = new Process(6);
   }
 
   @Test
@@ -19,7 +19,23 @@ public class ProcessTest {
     assertEquals(1, p1.getPid());
     assertEquals(2, p2.getPid());
 
-    Process p3 = new Process();
-    assertEquals(3, p3.getPid());
+    Process p3 = new Process(3);
+    assertTrue(p3.getPid() > 2);
+
+    assertEquals(1, p1.getArrivalTime());
+    assertEquals(6, p2.getArrivalTime());
+    assertEquals(3, p3.getArrivalTime());
+  }
+
+  @Test
+  public void testArrivalTime() {
+    assertEquals(1, p1.getArrivalTime());
+    assertEquals(6, p2.getArrivalTime());
+
+    assertEquals(1, p1.getPid());
+    assertEquals(2, p2.getPid());
+
+    Process p3 = new Process(10);
+    assertEquals(10, p3.getArrivalTime());
   }
 }
