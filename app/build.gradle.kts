@@ -31,6 +31,10 @@ application {
     mainClass.set("cpuscheduling.App")
 }
 
+tasks.jar {
+    manifest.attributes["Main-Class"] = application.mainClass
+}
+
 /* Test Configurations */
 
 jacoco {
