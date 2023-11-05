@@ -9,25 +9,28 @@ public class Process {
   /** The process id number. */
   private final int pid;
 
-  /** Arrival time of this process. */
+  /** The arrival time of this Process. */
   private final int arrivalTime;
 
   /** The CPU Burst time required of this Process. */
   private int burstTime;
 
+  /** The priority of this Process. */
+  private int priority;
+
   /**
-   * Constructor for the Process class.
-   *
    * @param aTime the arrival time for the Process.
    * @param bTime the burst time required for this Process.
+   * @param prior the priority of this Process.
    */
-  public Process(int aTime, int bTime) {
+  public Process(int aTime, int bTime, int prior) {
     this.pid = PID_COUNTER;
     PID_COUNTER++;
 
     this.arrivalTime = aTime;
 
     setBurstTime(bTime);
+    setPriority(prior);
   }
 
   /**
@@ -67,5 +70,26 @@ public class Process {
       time = (time * -1);
     }
     this.burstTime = time;
+  }
+
+  /**
+   * Get the priority of this Process.
+   *
+   * @return priority of this Process.
+   */
+  public int getPriority() {
+    return this.priority;
+  }
+
+  /**
+   * Set the priority of this Process.
+   *
+   * @param prior the priority integer.
+   */
+  public void setPriority(int prior) {
+    if (prior < 0) {
+      prior = prior * -1;
+    }
+    this.priority = prior;
   }
 }
