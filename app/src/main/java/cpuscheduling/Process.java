@@ -12,16 +12,22 @@ public class Process {
   /** Arrival time of this process. */
   private final int arrivalTime;
 
+  /** The CPU Burst time required of this Process. */
+  private int burstTime;
+
   /**
    * Constructor for the Process class.
    *
-   * @param time the arrival time for the Process.
+   * @param aTime the arrival time for the Process.
+   * @param bTime the burst time required for this Process.
    */
-  public Process(int time) {
+  public Process(int aTime, int bTime) {
     this.pid = PID_COUNTER;
     PID_COUNTER++;
 
-    this.arrivalTime = time;
+    this.arrivalTime = aTime;
+
+    setBurstTime(bTime);
   }
 
   /**
@@ -38,7 +44,28 @@ public class Process {
    *
    * @return arrival time.
    */
-  int getArrivalTime() {
+  public int getArrivalTime() {
     return this.arrivalTime;
+  }
+
+  /**
+   * Get this Process' CPU burst time.
+   *
+   * @return the burst time.
+   */
+  public int getBurstTime() {
+    return this.burstTime;
+  }
+
+  /**
+   * Set this Process' CPU burst time.
+   *
+   * @param time required CPU burst time.
+   */
+  public void setBurstTime(int time) {
+    if (time < 0) {
+      time = (time * -1);
+    }
+    this.burstTime = time;
   }
 }
