@@ -108,4 +108,13 @@ public class Process {
     }
     this.priority = prior;
   }
+
+  /**
+   * Return a string representation of this Process.
+   *
+   * @return String of Process.
+   */
+  public String toString() {
+    return String.format("%d %d %d %d", getPid(), getArrivalTime(), getBurstTime(), getPriority());
+  }
 }

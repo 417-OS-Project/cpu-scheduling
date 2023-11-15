@@ -49,5 +49,9 @@ public class App {
       System.out.println("Text file not provided");
       System.exit(-1);
     }
+
+      for (Process process : processCollection) {
+          System.out.println(process.toString());
+      }
   }
 }

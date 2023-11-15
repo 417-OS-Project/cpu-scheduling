@@ -99,4 +99,12 @@ public class ProcessTest {
     assertEquals(arrivalTime, p3.getArrivalTime());
     assertEquals(burstTime, p3.getBurstTime());
   }
+
+  @Test
+  public void testToString() {
+    assertTrue(p1.toString().contains(Integer.toString(p1.getPid())));
+    assertTrue(p1.toString().contains(Integer.toString(p1.getArrivalTime())));
+    assertTrue(p1.toString().contains(Integer.toString(p1.getBurstTime())));
+    assertTrue(p1.toString().contains(Integer.toString(p1.getPriority())));
+  }
 }
