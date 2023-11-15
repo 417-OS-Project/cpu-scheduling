@@ -3,6 +3,7 @@ package cpuscheduling;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class App {
   /**
@@ -36,13 +37,12 @@ public class App {
     }
     File dFile = new File(args[0]);
 
+    ArrayList<Process> processCollection = new ArrayList<Process>();
     try (Scanner fileScanner = new Scanner(dFile, "UTF-8")) {
       while (fileScanner.hasNextLine()) {
         int[] line = parseLine(fileScanner.nextLine());
         if(line != null) {
-          for(int i = 0; i < 3; i++) {
-            System.out.println(line[i]);
-          }
+          processCollection.add(new Process(line));
         }
       }
     } catch (FileNotFoundException e) {
