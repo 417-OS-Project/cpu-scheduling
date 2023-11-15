@@ -9,10 +9,23 @@ public class App {
    * Parses the line provided to create Process objects.
    *
    * @param line containing the process information.
-   * @return Process object.
+   * @return array of integers.
    */
-  public String parseLine(String line) {
-    return "Hello World!";
+  public static int[] parseLine(String line) {
+    String[] splitStr = line.split("\\s+");
+    if(splitStr.length > 3) {
+      return null;
+    }
+
+    int[] values = new int[3];
+    try {
+      for(int i = 0; i < 3; i++) {
+        values[i] = Integer.parseInt(splitStr[i]);
+      }
+    } catch (NumberFormatException e) {
+      return null;
+    }
+    return values;
   }
 
   public static void main(String[] args) {
@@ -25,7 +38,12 @@ public class App {
 
     try (Scanner fileScanner = new Scanner(dFile, "UTF-8")) {
       while (fileScanner.hasNextLine()) {
-        System.out.println(fileScanner.nextLine());
+        int[] line = parseLine(fileScanner.nextLine());
+        if(line != null) {
+          for(int i = 0; i < 3; i++) {
+            System.out.println(line[i]);
+          }
+        }
       }
     } catch (FileNotFoundException e) {
       System.out.println("Text file not provided");
