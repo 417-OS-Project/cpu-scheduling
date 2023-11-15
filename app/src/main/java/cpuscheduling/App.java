@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/** Main application for the cpuscheduling package. */
 public class App {
   /**
    * Parses the line provided to create Process objects.
@@ -29,16 +30,21 @@ public class App {
     return values;
   }
 
+  /**
+   * Main driver for the cpuscheduling package.
+   *
+   * @param args containing a text file of process information.
+   */
   public static void main(String[] args) {
     boolean noArg = args.length < 1;
     if (noArg) {
       System.out.println("File not provided");
       System.exit(-1);
     }
-    File dFile = new File(args[0]);
+    File dataFile = new File(args[0]);
 
     ArrayList<Process> processCollection = new ArrayList<Process>();
-    try (Scanner fileScanner = new Scanner(dFile, "UTF-8")) {
+    try (Scanner fileScanner = new Scanner(dataFile, "UTF-8")) {
       while (fileScanner.hasNextLine()) {
         int[] line = parseLine(fileScanner.nextLine());
         if (line != null) {
