@@ -19,6 +19,8 @@ public class Process {
   private int priority;
 
   /**
+   * Multi-integer constructor for the Process.
+   *
    * @param aTime the arrival time for the Process.
    * @param bTime the burst time required for this Process.
    * @param prior the priority of this Process.
@@ -31,6 +33,20 @@ public class Process {
 
     setBurstTime(bTime);
     setPriority(prior);
+  }
+
+  /**
+   * Array constructor for the Process.
+   *
+   * @param data the 3-element array of data for the Process.
+   */
+  public Process(int[] data) {
+    this.pid = PID_COUNTER;
+    PID_COUNTER++;
+
+    this.arrivalTime = data[0];
+    setBurstTime(data[1]);
+    setPriority(data[2]);
   }
 
   /**
