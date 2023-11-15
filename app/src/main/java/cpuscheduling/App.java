@@ -2,8 +2,8 @@ package cpuscheduling;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class App {
   /**
@@ -14,13 +14,13 @@ public class App {
    */
   public static int[] parseLine(String line) {
     String[] splitStr = line.split("\\s+");
-    if(splitStr.length > 3) {
+    if (splitStr.length > 3) {
       return null;
     }
 
     int[] values = new int[3];
     try {
-      for(int i = 0; i < 3; i++) {
+      for (int i = 0; i < 3; i++) {
         values[i] = Integer.parseInt(splitStr[i]);
       }
     } catch (NumberFormatException e) {
@@ -41,7 +41,7 @@ public class App {
     try (Scanner fileScanner = new Scanner(dFile, "UTF-8")) {
       while (fileScanner.hasNextLine()) {
         int[] line = parseLine(fileScanner.nextLine());
-        if(line != null) {
+        if (line != null) {
           processCollection.add(new Process(line));
         }
       }
@@ -50,8 +50,8 @@ public class App {
       System.exit(-1);
     }
 
-      for (Process process : processCollection) {
-          System.out.println(process.toString());
-      }
+    for (Process process : processCollection) {
+      System.out.println(process.toString());
+    }
   }
 }

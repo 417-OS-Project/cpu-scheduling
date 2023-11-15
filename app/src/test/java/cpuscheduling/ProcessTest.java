@@ -20,7 +20,7 @@ public class ProcessTest {
   public void testProcessID() {
     assertEquals(1, p1.getPid());
     assertEquals(2, p2.getPid());
-    assertEquals(3,  pArray.getPid());
+    assertEquals(3, pArray.getPid());
 
     Process p3 = new Process(3, 61, 2);
     assertTrue(p3.getPid() > 3);
