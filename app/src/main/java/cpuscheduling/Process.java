@@ -21,17 +21,17 @@ public class Process {
   /**
    * Multi-integer constructor for the Process.
    *
-   * @param aTime the arrival time for the Process.
-   * @param bTime the burst time required for this Process.
+   * @param enterTime the arrival time for the Process.
+   * @param cpuTime the burst time required for this Process.
    * @param prior the priority of this Process.
    */
-  public Process(int aTime, int bTime, int prior) {
+  public Process(int enterTime, int cpuTime, int prior) {
     this.pid = PID_COUNTER;
     PID_COUNTER++;
 
-    this.arrivalTime = aTime;
+    this.arrivalTime = enterTime;
 
-    setBurstTime(bTime);
+    setBurstTime(cpuTime);
     setPriority(prior);
   }
 

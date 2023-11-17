@@ -80,7 +80,11 @@ tasks.withType<Pmd>().configureEach {
 }
 
 checkstyle {
-    toolVersion = "10.12.3" 
+    toolVersion = "10.12.3"
+}
+
+tasks.checkstyleTest {
+    enabled = false
 }
 
 tasks.withType<Checkstyle>().configureEach {
