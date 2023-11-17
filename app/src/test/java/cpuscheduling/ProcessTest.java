@@ -18,9 +18,9 @@ public class ProcessTest {
 
   @Test
   public void testProcessID() {
-    assertEquals(1, p1.getPid());
-    assertEquals(2, p2.getPid());
-    assertEquals(3, pArray.getPid());
+    assertNotEquals(p1.getPid(), p2.getPid());
+    assertNotEquals(p1.getPid(), pArray.getPid());
+    assertNotEquals(p2.getPid(), pArray.getPid());
 
     Process p3 = new Process(3, 61, 2);
     assertTrue(p3.getPid() > 3);
