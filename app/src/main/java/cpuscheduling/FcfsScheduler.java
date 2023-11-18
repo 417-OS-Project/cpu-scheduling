@@ -79,4 +79,13 @@ public class FcfsScheduler {
   public int getTotalProcessCount() {
     return this.stats.getTotalProcessCount();
   }
+
+  /**
+   * Utility function to determine if there is a current process or queue.
+   *
+   * @return True if there is a current process or queue
+   */
+  public Boolean canContinue() {
+      return this.currentProcess != null || this.getSizeOfQueue() != 0;
+  }
 }

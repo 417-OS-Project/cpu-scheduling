@@ -56,8 +56,21 @@ public class App {
       System.exit(-1);
     }
 
-    for (Process process : processCollection) {
-      System.out.println(process.toString());
+    FcfsScheduler fcfs = new FcfsScheduler();
+    int counter = 0;
+
+    while(!processCollection.isEmpty()) {
+      if(counter == processCollection.get(0).getArrivalTime()) {
+        fcfs.addProcess(processCollection.get(0));
+        processCollection.remove(0);
+      }
+      counter++;
     }
+
+    while(fcfs.canContinue()) {
+      fcfs.cycle();
+    }
+
+    System.out.println(fcfs.getTotalProcessCount());
   }
 }

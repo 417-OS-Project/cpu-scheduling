@@ -57,6 +57,7 @@ public class FCFSTest {
     assertEquals(2, fcfs.getCurrentBurstRemaining());
     assertEquals(1, fcfs.getSizeOfQueue());
     assertEquals(2, fcfs.getTotalProcessCount());
+    assertTrue(fcfs.canContinue());
 
     for (int i = 0; i <= 2; i++) {
       fcfs.cycle();
@@ -64,6 +65,7 @@ public class FCFSTest {
     assertEquals(3, fcfs.getCurrentBurstRemaining());
     assertEquals(0, fcfs.getSizeOfQueue());
     assertEquals(3, fcfs.getTotalProcessCount());
+    assertTrue(fcfs.canContinue());
 
     for (int i = 0; i <= 3; i++) {
       fcfs.cycle();
@@ -71,5 +73,6 @@ public class FCFSTest {
     assertEquals(0, fcfs.getCurrentBurstRemaining());
     assertEquals(0, fcfs.getSizeOfQueue());
     assertEquals(3, fcfs.getTotalProcessCount());
+    assertFalse(fcfs.canContinue());
   }
 }
