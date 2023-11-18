@@ -15,6 +15,9 @@ public class Process {
   /** The CPU Burst time required of this Process. */
   private int burstTime;
 
+  /** The remaining bursts needed for this Process. */
+  private int remainingBurstTime;
+
   /** The priority of this Process. */
   private int priority;
 
@@ -77,6 +80,15 @@ public class Process {
   }
 
   /**
+   * Get this Process' remaining CPU burst time.
+   *
+   * @return the remaining burst time.
+   */
+  public int getRemainingBurstTime() {
+    return this.remainingBurstTime;
+  }
+
+  /**
    * Set this Process' CPU burst time.
    *
    * @param time required CPU burst time.
@@ -86,6 +98,12 @@ public class Process {
       time = (time * -1);
     }
     this.burstTime = time;
+    this.remainingBurstTime = time;
+  }
+
+  /** Decrement the remaining burst time by one. */
+  public void decrementRemainingBurst() {
+    this.remainingBurstTime--;
   }
 
   /**

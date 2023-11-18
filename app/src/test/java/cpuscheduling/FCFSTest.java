@@ -1,5 +1,7 @@
 package cpuscheduling;
 
+import static org.junit.Assert.*;
+
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,27 +19,50 @@ public class FCFSTest {
   @Test
   public void testAddProcess() {
     FCFCscheduler fcfs = new FCFCscheduler();
-    assert fcfs.getSizeOfQueue() == 0;
+    assertEquals(0, fcfs.getSizeOfQueue());
 
     fcfs.addProcess(new Process(3, 4, 5));
-    assert fcfs.getSizeOfQueue() == 1;
+    assertEquals(1, fcfs.getSizeOfQueue());
 
     FCFCscheduler second = new FCFCscheduler();
     for (Process process : list) {
       second.addProcess(process);
     }
-    assert second.getSizeOfQueue() == 3;
+    assertEquals(3, second.getSizeOfQueue());
   }
 
   @Test
   public void testCycle() {
     FCFCscheduler fcfs = new FCFCscheduler();
+    assertEquals(0, fcfs.getSizeOfQueue());
+    fcfs.cycle();
+    assertEquals(0, fcfs.getSizeOfQueue());
+
     for (Process process : list) {
       fcfs.addProcess(process);
     }
 
-    assert fcfs.getSizeOfQueue() == 3;
+    assertEquals(3, fcfs.getSizeOfQueue());
     fcfs.cycle();
-    assert fcfs.getSizeOfQueue() == 2;
+    assertEquals(2, fcfs.getSizeOfQueue());
+    assertEquals(23, fcfs.getCurrentBurstRemaining());
+
+    for (int i = 0; i < 23; i++) {
+      fcfs.cycle();
+    }
+    assertEquals(3, fcfs.getCurrentBurstRemaining());
+    assertEquals(1, fcfs.getSizeOfQueue());
+
+    for (int i = 0; i < 3; i++) {
+      fcfs.cycle();
+    }
+    assertEquals(4, fcfs.getCurrentBurstRemaining());
+    assertEquals(0, fcfs.getSizeOfQueue());
+
+    for (int i = 0; i < 5; i++) {
+      fcfs.cycle();
+    }
+    assertEquals(0, fcfs.getCurrentBurstRemaining());
+    assertEquals(0, fcfs.getSizeOfQueue());
   }
 }

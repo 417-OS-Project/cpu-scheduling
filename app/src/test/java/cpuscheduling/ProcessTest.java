@@ -56,6 +56,7 @@ public class ProcessTest {
     int priority = p3.getPriority();
 
     assertEquals(63, p3.getBurstTime());
+    assertEquals(63, p3.getRemainingBurstTime());
 
     p3.setBurstTime(55);
     assertEquals(55, p3.getBurstTime());
@@ -66,6 +67,7 @@ public class ProcessTest {
 
     p3.setBurstTime(-23);
     assertEquals(23, p3.getBurstTime());
+    assertEquals(23, p3.getRemainingBurstTime());
 
     assertEquals(pid, p3.getPid());
     assertEquals(arrivalTime, p3.getArrivalTime());

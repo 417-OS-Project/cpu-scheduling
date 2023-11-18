@@ -13,14 +13,28 @@ public class FCFCscheduler {
 
   /** Constructor for the FCFSscheduler class. */
   public FCFCscheduler() {
-    queue = new LinkedList<>();
-    currentProcess = null;
+    this.queue = new LinkedList<>();
+    this.currentProcess = null;
   }
 
   /** Run one cycle of this scheduler. */
   public void cycle() {
-    if (currentProcess == null && getSizeOfQueue() != 0) {
-      currentProcess = queue.remove();
+    // TODO: Cut down on if statements
+    if (this.currentProcess == null) {
+      if (this.getSizeOfQueue() != 0) {
+        this.currentProcess = this.queue.remove();
+      } else {
+        return;
+      }
+    }
+    this.currentProcess.decrementRemainingBurst();
+
+    if (this.currentProcess.getRemainingBurstTime() == 0) {
+      if (this.getSizeOfQueue() != 0) {
+        this.currentProcess = this.queue.remove();
+      } else {
+        this.currentProcess = null;
+      }
     }
   }
 
@@ -30,7 +44,7 @@ public class FCFCscheduler {
    * @param newProcess the new Process to be added to the back of the queue.
    */
   public void addProcess(Process newProcess) {
-    queue.add(newProcess);
+    this.queue.add(newProcess);
   }
 
   /**
@@ -39,6 +53,18 @@ public class FCFCscheduler {
    * @return size of the queue.
    */
   public int getSizeOfQueue() {
-    return queue.size();
+    return this.queue.size();
+  }
+
+  /**
+   * Return the remaining bursts left on the current Process.
+   *
+   * @return current process' remaining burst time.
+   */
+  public int getCurrentBurstRemaining() {
+    if (this.currentProcess == null) {
+      return 0;
+    }
+    return this.currentProcess.getRemainingBurstTime();
   }
 }
