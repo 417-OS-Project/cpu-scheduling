@@ -73,6 +73,6 @@ public class StatTracker {
    * @return CPU utilization.
    */
   public double calculateUtilization() {
-    return 0;
+    return (((double) this.totalBurstTime / this.totalElapsedTime * 100));
   }
 }

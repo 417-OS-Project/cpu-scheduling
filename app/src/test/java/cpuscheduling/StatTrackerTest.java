@@ -35,15 +35,15 @@ public class StatTrackerTest {
     Process p2 = new Process(0, 5, 3);
     Process p3 = new Process(234, 6, 4);
 
-    for(int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++) {
       stats.updateStats(p1);
     }
-    for(int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++) {
       stats.updateStats(p2);
     }
     assertEquals(4.5, stats.calculateThroughput(), 0.001);
 
-    for(int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; i++) {
       stats.updateStats(p3);
     }
     assertEquals(5, stats.calculateThroughput(), 0.001);
@@ -51,6 +51,19 @@ public class StatTrackerTest {
 
   @Test
   public void testUtilization() {
-    assert false;
+    StatTracker stats = new StatTracker();
+    Process p1 = new Process(0, 4, 3);
+    Process p2 = new Process(0, 5, 3);
+    Process p3 = new Process(10, 10, 4);
+
+    for (int i = 0; i < 4; i++) {
+      stats.updateStats(p1);
+    }
+    for (int i = 0; i < 5; i++) {
+      stats.updateStats(p2);
+    }
+    assertEquals(100, stats.calculateUtilization(), 0.001);
+    stats.updateStats(null);
+    assertEquals(90, stats.calculateUtilization(), 0.001);
   }
 }

@@ -93,10 +93,19 @@ public class FcfsScheduler {
   /**
    * Return the calculated throughput.
    *
-   * @return the throughput.
+   * @return current throughput.
    */
   public double getThroughput() {
     return stats.calculateThroughput();
+  }
+
+  /**
+   * Return the calculated CPU utilization.
+   *
+   * @return current CPU utilization.
+   */
+  public double getUtilization() {
+    return stats.calculateUtilization();
   }
 
   /**

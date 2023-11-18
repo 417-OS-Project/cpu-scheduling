@@ -74,5 +74,6 @@ public class App {
     System.out.println(fcfs.getTotalProcessCount());
     System.out.println(fcfs.getTotalElapsedTime());
     System.out.println(fcfs.getThroughput());
+    System.out.println(fcfs.getUtilization());
   }
 }
