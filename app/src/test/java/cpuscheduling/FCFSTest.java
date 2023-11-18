@@ -31,6 +31,13 @@ public class FCFSTest {
 
   @Test
   public void testCycle() {
-    assert false;
+    FCFCscheduler fcfs = new FCFCscheduler();
+    for (Process process : list) {
+      fcfs.addProcess(process);
+    }
+
+    assert fcfs.getSizeOfQueue() == 3;
+    fcfs.cycle();
+    assert fcfs.getSizeOfQueue() == 2;
   }
 }

@@ -8,14 +8,20 @@ public class FCFCscheduler {
   /** Queue of processes. */
   private Queue<Process> queue;
 
+  /** The process currently using the CPU. */
+  private Process currentProcess;
+
   /** Constructor for the FCFSscheduler class. */
   public FCFCscheduler() {
     queue = new LinkedList<>();
+    currentProcess = null;
   }
 
   /** Run one cycle of this scheduler. */
   public void cycle() {
-    return;
+    if (currentProcess == null && getSizeOfQueue() != 0) {
+      currentProcess = queue.remove();
+    }
   }
 
   /**
