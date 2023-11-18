@@ -4,15 +4,15 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /** First-Come, First-Serve scheduler. */
-public class FCFCscheduler {
+public class FcfsScheduler {
   /** Queue of processes. */
   private Queue<Process> queue;
 
   /** The process currently using the CPU. */
   private Process currentProcess;
 
-  /** Constructor for the FCFSscheduler class. */
-  public FCFCscheduler() {
+  /** Constructor for the FcfsScheduler class. */
+  public FcfsScheduler() {
     this.queue = new LinkedList<>();
     this.currentProcess = null;
   }

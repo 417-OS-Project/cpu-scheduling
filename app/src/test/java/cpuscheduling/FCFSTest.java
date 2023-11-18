@@ -18,13 +18,13 @@ public class FCFSTest {
 
   @Test
   public void testAddProcess() {
-    FCFCscheduler fcfs = new FCFCscheduler();
+    FcfsScheduler fcfs = new FcfsScheduler();
     assertEquals(0, fcfs.getSizeOfQueue());
 
     fcfs.addProcess(new Process(3, 4, 5));
     assertEquals(1, fcfs.getSizeOfQueue());
 
-    FCFCscheduler second = new FCFCscheduler();
+    FcfsScheduler second = new FcfsScheduler();
     for (Process process : list) {
       second.addProcess(process);
     }
@@ -33,7 +33,7 @@ public class FCFSTest {
 
   @Test
   public void testCycle() {
-    FCFCscheduler fcfs = new FCFCscheduler();
+    FcfsScheduler fcfs = new FcfsScheduler();
     assertEquals(0, fcfs.getSizeOfQueue());
     fcfs.cycle();
     assertEquals(0, fcfs.getSizeOfQueue());
