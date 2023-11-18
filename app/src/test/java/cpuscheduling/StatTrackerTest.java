@@ -31,11 +31,26 @@ public class StatTrackerTest {
   @Test
   public void testThroughput() {
     StatTracker stats = new StatTracker();
-    stats.updateStats(new Process(0, 4, 3));
-    stats.updateStats(new Process(2, 5, 3));
+    Process p1 = new Process(0, 4, 3);
+    Process p2 = new Process(0, 5, 3);
+    Process p3 = new Process(234, 6, 4);
+
+    for(int i = 0; i < 4; i++) {
+      stats.updateStats(p1);
+    }
+    for(int i = 0; i < 5; i++) {
+      stats.updateStats(p2);
+    }
     assertEquals(4.5, stats.calculateThroughput(), 0.001);
 
-    stats.updateStats(new Process(34, 6, 3));
+    for(int i = 0; i < 6; i++) {
+      stats.updateStats(p3);
+    }
     assertEquals(5, stats.calculateThroughput(), 0.001);
+  }
+
+  @Test
+  public void testUtilization() {
+    assert false;
   }
 }

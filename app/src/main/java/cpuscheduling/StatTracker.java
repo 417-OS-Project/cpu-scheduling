@@ -34,9 +34,9 @@ public class StatTracker {
     if (process != null) {
       if (!pidTrack.contains(process.getPid())) {
         this.pidTrack.add(process.getPid());
-        this.totalBurstTime += process.getBurstTime();
         this.totalNumOfProcesses++;
       }
+      this.totalBurstTime++;
     }
   }
 
@@ -65,5 +65,14 @@ public class StatTracker {
    */
   public double calculateThroughput() {
     return ((double) this.totalBurstTime / this.totalNumOfProcesses);
+  }
+
+  /**
+   * Return the calculated CPU utilization.
+   *
+   * @return CPU utilization.
+   */
+  public double calculateUtilization() {
+    return 0;
   }
 }
