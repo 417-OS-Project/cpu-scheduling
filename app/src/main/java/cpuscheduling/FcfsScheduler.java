@@ -25,7 +25,8 @@ public class FcfsScheduler {
   public void cycle() {
     // TODO: Cut down on if statements
     if (this.currentProcess == null) {
-      if (this.getSizeOfQueue() != 0) {
+      if (this.getSizeOfQueue() != 0
+          && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
         this.currentProcess = this.queue.remove();
       } else {
         // The null case
@@ -81,11 +82,20 @@ public class FcfsScheduler {
   }
 
   /**
+   * Return the total elapsed time.
+   *
+   * @return total elapsed time.
+   */
+  public int getTotalElapsedTime() {
+    return this.stats.getTotalElapsedTime();
+  }
+
+  /**
    * Utility function to determine if there is a current process or queue.
    *
    * @return True if there is a current process or queue
    */
   public Boolean canContinue() {
-      return this.currentProcess != null || this.getSizeOfQueue() != 0;
+    return this.currentProcess != null || this.getSizeOfQueue() != 0;
   }
 }

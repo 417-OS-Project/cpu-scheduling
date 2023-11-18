@@ -37,8 +37,10 @@ public class FCFSTest {
   public void testCycle() {
     FcfsScheduler fcfs = new FcfsScheduler();
     assertEquals(0, fcfs.getSizeOfQueue());
+    assertEquals(0, fcfs.getTotalElapsedTime());
     fcfs.cycle();
     assertEquals(0, fcfs.getSizeOfQueue());
+    assertEquals(1, fcfs.getTotalElapsedTime());
 
     for (Process process : list) {
       fcfs.addProcess(process);
@@ -50,6 +52,7 @@ public class FCFSTest {
     assertEquals(2, fcfs.getSizeOfQueue());
     assertEquals(1, fcfs.getTotalProcessCount());
     assertEquals(23, fcfs.getCurrentBurstRemaining());
+    assertEquals(2, fcfs.getTotalElapsedTime());
 
     for (int i = 0; i <= 23; i++) {
       fcfs.cycle();

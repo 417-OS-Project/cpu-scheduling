@@ -59,18 +59,19 @@ public class App {
     FcfsScheduler fcfs = new FcfsScheduler();
     int counter = 0;
 
-    while(!processCollection.isEmpty()) {
-      if(counter == processCollection.get(0).getArrivalTime()) {
+    while (!processCollection.isEmpty()) {
+      if (counter == processCollection.get(0).getArrivalTime()) {
         fcfs.addProcess(processCollection.get(0));
         processCollection.remove(0);
       }
       counter++;
     }
 
-    while(fcfs.canContinue()) {
+    while (fcfs.canContinue()) {
       fcfs.cycle();
     }
 
-    System.out.println(fcfs.getTotalProcessCount());
+    System.out.println(fcfs.getTotalProcessCount() + "\n");
+    System.out.println(fcfs.getTotalElapsedTime() + "\n");
   }
 }
