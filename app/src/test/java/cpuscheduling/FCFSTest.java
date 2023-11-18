@@ -23,12 +23,14 @@ public class FCFSTest {
 
     fcfs.addProcess(new Process(3, 4, 5));
     assertEquals(1, fcfs.getSizeOfQueue());
+    assertEquals(0, fcfs.getTotalProcessCount());
 
     FcfsScheduler second = new FcfsScheduler();
     for (Process process : list) {
       second.addProcess(process);
     }
     assertEquals(3, second.getSizeOfQueue());
+    assertEquals(0, second.getTotalProcessCount());
   }
 
   @Test
@@ -43,26 +45,31 @@ public class FCFSTest {
     }
 
     assertEquals(3, fcfs.getSizeOfQueue());
+    assertEquals(0, fcfs.getTotalProcessCount());
     fcfs.cycle();
     assertEquals(2, fcfs.getSizeOfQueue());
+    assertEquals(1, fcfs.getTotalProcessCount());
     assertEquals(23, fcfs.getCurrentBurstRemaining());
 
-    for (int i = 0; i < 23; i++) {
+    for (int i = 0; i <= 23; i++) {
+      fcfs.cycle();
+    }
+    assertEquals(2, fcfs.getCurrentBurstRemaining());
+    assertEquals(1, fcfs.getSizeOfQueue());
+    assertEquals(2, fcfs.getTotalProcessCount());
+
+    for (int i = 0; i <= 2; i++) {
       fcfs.cycle();
     }
     assertEquals(3, fcfs.getCurrentBurstRemaining());
-    assertEquals(1, fcfs.getSizeOfQueue());
-
-    for (int i = 0; i < 3; i++) {
-      fcfs.cycle();
-    }
-    assertEquals(4, fcfs.getCurrentBurstRemaining());
     assertEquals(0, fcfs.getSizeOfQueue());
+    assertEquals(3, fcfs.getTotalProcessCount());
 
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i <= 3; i++) {
       fcfs.cycle();
     }
     assertEquals(0, fcfs.getCurrentBurstRemaining());
     assertEquals(0, fcfs.getSizeOfQueue());
+    assertEquals(3, fcfs.getTotalProcessCount());
   }
 }

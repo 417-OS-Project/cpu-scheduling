@@ -11,10 +11,14 @@ public class FcfsScheduler {
   /** The process currently using the CPU. */
   private Process currentProcess;
 
+  /** The stat tracker for this scheduler. */
+  private StatTracker stats;
+
   /** Constructor for the FcfsScheduler class. */
   public FcfsScheduler() {
     this.queue = new LinkedList<>();
     this.currentProcess = null;
+    this.stats = new StatTracker();
   }
 
   /** Run one cycle of this scheduler. */
@@ -24,17 +28,16 @@ public class FcfsScheduler {
       if (this.getSizeOfQueue() != 0) {
         this.currentProcess = this.queue.remove();
       } else {
+        // The null case
+        stats.updateStats(this.currentProcess);
         return;
       }
     }
     this.currentProcess.decrementRemainingBurst();
+    stats.updateStats(this.currentProcess);
 
     if (this.currentProcess.getRemainingBurstTime() == 0) {
-      if (this.getSizeOfQueue() != 0) {
-        this.currentProcess = this.queue.remove();
-      } else {
-        this.currentProcess = null;
-      }
+      this.currentProcess = null;
     }
   }
 
@@ -66,5 +69,14 @@ public class FcfsScheduler {
       return 0;
     }
     return this.currentProcess.getRemainingBurstTime();
+  }
+
+  /**
+   * Return the total number of processes that have accessed the CPU.
+   *
+   * @return total process count.
+   */
+  public int getTotalProcessCount() {
+    return this.stats.getTotalProcessCount();
   }
 }
