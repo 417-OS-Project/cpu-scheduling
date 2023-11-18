@@ -27,4 +27,15 @@ public class StatTrackerTest {
     assertEquals(2, stats.getTotalProcessCount());
     assertEquals(4, stats.getTotalElapsedTime());
   }
+
+  @Test
+  public void testThroughput() {
+    StatTracker stats = new StatTracker();
+    stats.updateStats(new Process(0, 4, 3));
+    stats.updateStats(new Process(2, 5, 3));
+    assertEquals(4.5, stats.calculateThroughput(), 0.001);
+
+    stats.updateStats(new Process(34, 6, 3));
+    assertEquals(5, stats.calculateThroughput(), 0.001);
+  }
 }

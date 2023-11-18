@@ -10,6 +10,9 @@ public class StatTracker {
   /** The total elapsed time. */
   private int totalElapsedTime;
 
+  /** The total burst time of all processes. */
+  private int totalBurstTime;
+
   /** List of process PIDs that have accessed the CPU. */
   private ArrayList<Integer> pidTrack;
 
@@ -17,6 +20,7 @@ public class StatTracker {
   public StatTracker() {
     this.totalNumOfProcesses = 0;
     this.totalElapsedTime = 0;
+    this.totalBurstTime = 0;
     this.pidTrack = new ArrayList<>();
   }
 
@@ -30,6 +34,7 @@ public class StatTracker {
     if (process != null) {
       if (!pidTrack.contains(process.getPid())) {
         this.pidTrack.add(process.getPid());
+        this.totalBurstTime += process.getBurstTime();
         this.totalNumOfProcesses++;
       }
     }
@@ -51,5 +56,14 @@ public class StatTracker {
    */
   public int getTotalElapsedTime() {
     return this.totalElapsedTime;
+  }
+
+  /**
+   * Return the calculated throughput.
+   *
+   * @return calculated throughput.
+   */
+  public double calculateThroughput() {
+    return ((double) this.totalBurstTime / this.totalNumOfProcesses);
   }
 }

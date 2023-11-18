@@ -71,7 +71,8 @@ public class App {
       fcfs.cycle();
     }
 
-    System.out.println(fcfs.getTotalProcessCount() + "\n");
-    System.out.println(fcfs.getTotalElapsedTime() + "\n");
+    System.out.println(fcfs.getTotalProcessCount());
+    System.out.println(fcfs.getTotalElapsedTime());
+    System.out.println(fcfs.getThroughput());
   }
 }

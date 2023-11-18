@@ -91,6 +91,15 @@ public class FcfsScheduler {
   }
 
   /**
+   * Return the calculated throughput.
+   *
+   * @return the throughput.
+   */
+  public double getThroughput() {
+    return stats.calculateThroughput();
+  }
+
+  /**
    * Utility function to determine if there is a current process or queue.
    *
    * @return True if there is a current process or queue
