@@ -13,6 +13,11 @@ public class StatTracker {
   /** The total burst time of all processes. */
   private int totalBurstTime;
 
+  /**
+   * The total response time of all processes.
+   */
+  private int totalResponseTime;
+
   /** List of process PIDs that have accessed the CPU. */
   private ArrayList<Integer> pidTrack;
 
@@ -21,6 +26,7 @@ public class StatTracker {
     this.totalNumOfProcesses = 0;
     this.totalElapsedTime = 0;
     this.totalBurstTime = 0;
+    this.totalResponseTime = 0;
     this.pidTrack = new ArrayList<>();
   }
 
@@ -30,14 +36,15 @@ public class StatTracker {
    * @param process the current process, pass null if no current process.
    */
   public void updateStats(Process process) {
-    this.totalElapsedTime++;
     if (process != null) {
       if (!pidTrack.contains(process.getPid())) {
         this.pidTrack.add(process.getPid());
         this.totalNumOfProcesses++;
+        this.totalResponseTime += (this.totalElapsedTime - process.getArrivalTime());
       }
       this.totalBurstTime++;
     }
+    this.totalElapsedTime++;
   }
 
   /**
@@ -56,6 +63,15 @@ public class StatTracker {
    */
   public int getTotalElapsedTime() {
     return this.totalElapsedTime;
+  }
+
+  /**
+   * Return the total response time.
+   *
+   * @return total response time.
+   */
+  public double getTotalResponseTime() {
+    return ((double)this.totalResponseTime / this.totalNumOfProcesses);
   }
 
   /**

@@ -8,3 +8,14 @@
 268	14	10
 268	30	4
 296	10	7
+
+FCFS Manually Calculated Stats
+Total Process: 10
+Elapsed Time: 338
+Total Burst Time: 179
+Empty Time: 159
+Throughput: 17.9
+CPU Utilization: 52.95858
+Average Waiting Time:
+Average Turnaround Time:
+Average Response Time: 16+30+32/10 = 7.8

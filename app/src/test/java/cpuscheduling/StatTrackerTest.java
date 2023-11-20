@@ -66,4 +66,17 @@ public class StatTrackerTest {
     stats.updateStats(null);
     assertEquals(90, stats.calculateUtilization(), 0.001);
   }
+
+  @Test
+  public void testResponseTime() {
+    StatTracker stats = new StatTracker();
+    Process p1 = new Process(0, 5, 4);
+    Process p2 = new Process(2, 2, 2);
+
+    for(int i = 0; i < 5; i++) {
+      stats.updateStats(p1);
+    }
+    stats.updateStats(p2);
+    assertEquals(stats.getTotalResponseTime(), 1.5, 0.001);
+  }
 }

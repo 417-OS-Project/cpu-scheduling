@@ -71,9 +71,10 @@ public class App {
       fcfs.cycle();
     }
 
-    System.out.println(fcfs.getTotalProcessCount());
-    System.out.println(fcfs.getTotalElapsedTime());
-    System.out.println(fcfs.getThroughput());
-    System.out.println(fcfs.getUtilization());
+    System.out.printf("Total Process: %d%n", fcfs.getTotalProcessCount());
+    System.out.printf("Total Elapsed Time: %d%n", fcfs.getTotalElapsedTime());
+    System.out.printf("Throughput: %f%n", fcfs.getThroughput());
+    System.out.printf("CPU Utilization: %f%n", fcfs.getUtilization());
+    System.out.printf("Average Response Time: %f%n", fcfs.getAverageResponseTime());
   }
 }

@@ -109,6 +109,15 @@ public class FcfsScheduler {
   }
 
   /**
+   * Return the average response time.
+   *
+   * @return average response time.
+   */
+  public double getAverageResponseTime() {
+    return stats.getTotalResponseTime();
+  }
+
+  /**
    * Utility function to determine if there is a current process or queue.
    *
    * @return True if there is a current process or queue
