@@ -34,8 +34,8 @@ public class FcfsScheduler {
         return;
       }
     }
-    this.currentProcess.decrementRemainingBurst();
     stats.updateStats(this.currentProcess);
+    this.currentProcess.decrementRemainingBurst();
 
     if (this.currentProcess.getRemainingBurstTime() == 0) {
       this.currentProcess = null;
