@@ -114,7 +114,7 @@ public class FcfsScheduler {
    * @return average response time.
    */
   public double getAverageResponseTime() {
-    return stats.getTotalResponseTime();
+    return stats.calculateAverageResponseTime();
   }
 
   /**

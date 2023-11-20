@@ -13,9 +13,7 @@ public class StatTracker {
   /** The total burst time of all processes. */
   private int totalBurstTime;
 
-  /**
-   * The total response time of all processes.
-   */
+  /** The total response time of all processes. */
   private int totalResponseTime;
 
   /** List of process PIDs that have accessed the CPU. */
@@ -70,8 +68,8 @@ public class StatTracker {
    *
    * @return total response time.
    */
-  public double getTotalResponseTime() {
-    return ((double)this.totalResponseTime / this.totalNumOfProcesses);
+  public double calculateAverageResponseTime() {
+    return ((double) this.totalResponseTime / this.totalNumOfProcesses);
   }
 
   /**
