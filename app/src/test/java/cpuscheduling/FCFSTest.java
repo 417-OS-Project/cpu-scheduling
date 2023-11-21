@@ -38,31 +38,39 @@ public class FCFSTest {
     FcfsScheduler fcfs = new FcfsScheduler();
     assertEquals(0, fcfs.getSizeOfQueue());
     assertEquals(0, fcfs.getTotalElapsedTime());
-    fcfs.cycle();
-    assertEquals(0, fcfs.getSizeOfQueue());
-    assertEquals(1, fcfs.getTotalElapsedTime());
+    assertEquals(0, fcfs.getTotalProcessCount());
+    assertFalse(fcfs.canContinue());
 
     for (Process process : list) {
       fcfs.addProcess(process);
     }
-
     assertEquals(3, fcfs.getSizeOfQueue());
     assertEquals(0, fcfs.getTotalProcessCount());
+    assertEquals(0, fcfs.getTotalElapsedTime());
+    assertTrue(fcfs.canContinue());
+
     fcfs.cycle();
     assertEquals(2, fcfs.getSizeOfQueue());
     assertEquals(1, fcfs.getTotalProcessCount());
     assertEquals(23, fcfs.getCurrentBurstRemaining());
-    assertEquals(2, fcfs.getTotalElapsedTime());
+    assertEquals(1, fcfs.getTotalElapsedTime());
 
-    for (int i = 0; i <= 23; i++) {
+    for (int i = 0; i < 23; i++) {
       fcfs.cycle();
     }
+    assertEquals(0, fcfs.getCurrentBurstRemaining());
+    assertEquals(2, fcfs.getSizeOfQueue());
+    assertEquals(1, fcfs.getTotalProcessCount());
+    assertEquals(24, fcfs.getTotalElapsedTime());
+    assertTrue(fcfs.canContinue());
+
+    fcfs.cycle();
     assertEquals(2, fcfs.getCurrentBurstRemaining());
     assertEquals(1, fcfs.getSizeOfQueue());
     assertEquals(2, fcfs.getTotalProcessCount());
     assertTrue(fcfs.canContinue());
 
-    for (int i = 0; i <= 2; i++) {
+    for (int i = 0; i < 3; i++) {
       fcfs.cycle();
     }
     assertEquals(3, fcfs.getCurrentBurstRemaining());
@@ -70,12 +78,9 @@ public class FCFSTest {
     assertEquals(3, fcfs.getTotalProcessCount());
     assertTrue(fcfs.canContinue());
 
-    for (int i = 0; i <= 3; i++) {
+    for(int i = 0; i < 3; i++) {
       fcfs.cycle();
     }
     assertEquals(0, fcfs.getCurrentBurstRemaining());
-    assertEquals(0, fcfs.getSizeOfQueue());
-    assertEquals(3, fcfs.getTotalProcessCount());
-    assertFalse(fcfs.canContinue());
   }
 }

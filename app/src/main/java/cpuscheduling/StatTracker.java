@@ -34,15 +34,17 @@ public class StatTracker {
    * @param process the current process, pass null if no current process.
    */
   public void updateStats(Process process) {
+    this.totalElapsedTime++;
+
     if (process != null) {
+      this.totalBurstTime++;
+
       if (!pidTrack.contains(process.getPid())) {
         this.pidTrack.add(process.getPid());
         this.totalNumOfProcesses++;
-        this.totalResponseTime += (this.totalElapsedTime - process.getArrivalTime());
+        this.totalResponseTime += ((this.totalElapsedTime - 1) - process.getArrivalTime());
       }
-      this.totalBurstTime++;
     }
-    this.totalElapsedTime++;
   }
 
   /**

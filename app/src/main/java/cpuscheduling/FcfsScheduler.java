@@ -25,6 +25,7 @@ public class FcfsScheduler {
   public void cycle() {
     // TODO: Cut down on if statements
     if (this.currentProcess == null) {
+      // Grab top of queue and continue
       if (this.getSizeOfQueue() != 0
           && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
         this.currentProcess = this.queue.remove();
@@ -34,12 +35,26 @@ public class FcfsScheduler {
         return;
       }
     }
-    stats.updateStats(this.currentProcess);
-    this.currentProcess.decrementRemainingBurst();
 
+    // No more cycles for current process
     if (this.currentProcess.getRemainingBurstTime() == 0) {
       this.currentProcess = null;
+      if (this.canContinue()
+          && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
+        this.currentProcess = this.queue.remove();
+      }
+      else if(this.queue.isEmpty()) {
+        // Nothing left to do
+        return;
+      }
+      else{
+        stats.updateStats(null);
+        return;
+      }
     }
+
+    this.currentProcess.decrementRemainingBurst();
+    stats.updateStats(this.currentProcess);
   }
 
   /**
@@ -67,7 +82,7 @@ public class FcfsScheduler {
    */
   public int getCurrentBurstRemaining() {
     if (this.currentProcess == null) {
-      return 0;
+      return -1;
     }
     return this.currentProcess.getRemainingBurstTime();
   }
