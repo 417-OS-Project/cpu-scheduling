@@ -1,7 +1,8 @@
 package cpuscheduling;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -31,6 +32,29 @@ public class App {
   }
 
   /**
+   * Parse a file for given process information.
+   *
+   * @param file valid text file.
+   * @return collection of processes, empty collection if invalid file.
+   */
+  public static ArrayList<Process> parseFile(File file) {
+    ArrayList<Process> processCollection = new ArrayList<Process>();
+
+    try (Scanner fileScanner = new Scanner(file, StandardCharsets.UTF_8)) {
+      while (fileScanner.hasNextLine()) {
+        int[] line = parseLine(fileScanner.nextLine());
+        if (line != null) {
+          processCollection.add(new Process(line));
+        }
+      }
+    } catch (IOException e) {
+      return processCollection;
+    }
+
+    return processCollection;
+  }
+
+  /**
    * Main driver for the cpuscheduling package.
    *
    * @param args containing a text file of process information.
@@ -43,35 +67,23 @@ public class App {
     }
     File dataFile = new File(args[0]);
 
-    ArrayList<Process> processCollection = new ArrayList<Process>();
-    try (Scanner fileScanner = new Scanner(dataFile, "UTF-8")) {
-      while (fileScanner.hasNextLine()) {
-        int[] line = parseLine(fileScanner.nextLine());
-        if (line != null) {
-          processCollection.add(new Process(line));
-        }
-      }
-    } catch (FileNotFoundException e) {
-      System.out.println("Text file not provided");
-      System.exit(-1);
-    }
+    ArrayList<Process> processCollection = parseFile(dataFile);
 
     FcfsScheduler fcfs = new FcfsScheduler();
-    int counter = 0;
 
     while (!processCollection.isEmpty()) {
-      if (counter == processCollection.get(0).getArrivalTime()) {
-        fcfs.addProcess(processCollection.get(0));
-        processCollection.remove(0);
-      }
-      counter++;
+      fcfs.addProcess(processCollection.get(0));
+      processCollection.remove(0);
     }
 
     while (fcfs.canContinue()) {
       fcfs.cycle();
     }
 
-    System.out.println(fcfs.getTotalProcessCount() + "\n");
-    System.out.println(fcfs.getTotalElapsedTime() + "\n");
+    System.out.printf("Total Process: %d%n", fcfs.getTotalProcessCount());
+    System.out.printf("Total Elapsed Time: %d%n", fcfs.getTotalElapsedTime());
+    System.out.printf("Throughput: %f%n", fcfs.getThroughput());
+    System.out.printf("CPU Utilization: %f%n", fcfs.getUtilization());
+    System.out.printf("Average Response Time: %f%n", fcfs.getAverageResponseTime());
   }
 }
