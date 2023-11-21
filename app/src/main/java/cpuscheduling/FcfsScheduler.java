@@ -42,12 +42,10 @@ public class FcfsScheduler {
       if (this.canContinue()
           && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
         this.currentProcess = this.queue.remove();
-      }
-      else if(this.queue.isEmpty()) {
+      } else if (this.queue.isEmpty()) {
         // Nothing left to do
         return;
-      }
-      else{
+      } else {
         stats.updateStats(null);
         return;
       }

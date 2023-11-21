@@ -78,7 +78,7 @@ public class FCFSTest {
     assertEquals(3, fcfs.getTotalProcessCount());
     assertTrue(fcfs.canContinue());
 
-    for(int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) {
       fcfs.cycle();
     }
     assertEquals(0, fcfs.getCurrentBurstRemaining());
