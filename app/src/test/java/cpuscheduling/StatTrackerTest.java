@@ -2,12 +2,19 @@ package cpuscheduling;
 
 import static org.junit.Assert.*;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class StatTrackerTest {
+  StatTracker stats;
+
+  @Before
+  public void init() {
+    stats = new StatTracker();
+  }
+
   @Test
-  public void testUpdateStats() {
-    StatTracker stats = new StatTracker();
+  public void testUpdateCountAndTime() {
     assertEquals(0, stats.getTotalProcessCount());
     assertEquals(0, stats.getTotalElapsedTime());
 
@@ -30,7 +37,6 @@ public class StatTrackerTest {
 
   @Test
   public void testThroughput() {
-    StatTracker stats = new StatTracker();
     Process p1 = new Process(0, 4, 3);
     Process p2 = new Process(0, 5, 3);
     Process p3 = new Process(234, 6, 4);
@@ -41,20 +47,21 @@ public class StatTrackerTest {
     for (int i = 0; i < 5; i++) {
       stats.updateStats(p2);
     }
+
+    // 9 Cycles / 2 Processes
     assertEquals(4.5, stats.calculateThroughput(), 0.001);
 
     for (int i = 0; i < 6; i++) {
       stats.updateStats(p3);
     }
+    // 15 Cycles / 3 Processes
     assertEquals(5, stats.calculateThroughput(), 0.001);
   }
 
   @Test
   public void testUtilization() {
-    StatTracker stats = new StatTracker();
     Process p1 = new Process(0, 4, 3);
     Process p2 = new Process(0, 5, 3);
-    Process p3 = new Process(10, 10, 4);
 
     for (int i = 0; i < 4; i++) {
       stats.updateStats(p1);
@@ -62,14 +69,16 @@ public class StatTrackerTest {
     for (int i = 0; i < 5; i++) {
       stats.updateStats(p2);
     }
+
+    // 9 Burst Units / 9 Elapsed Time
     assertEquals(100, stats.calculateUtilization(), 0.001);
     stats.updateStats(null);
+    // 9 Burst Units / 10 Elapsed Time
     assertEquals(90, stats.calculateUtilization(), 0.001);
   }
 
   @Test
   public void testResponseTime() {
-    StatTracker stats = new StatTracker();
     Process p1 = new Process(0, 5, 4);
     Process p2 = new Process(2, 2, 2);
 
@@ -77,6 +86,8 @@ public class StatTrackerTest {
       stats.updateStats(p1);
     }
     stats.updateStats(p2);
+
+    // (0 + (5-2)) / 2 Total Processes
     assertEquals(stats.calculateAverageResponseTime(), 1.5, 0.001);
   }
 }
