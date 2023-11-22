@@ -66,15 +66,6 @@ public class StatTracker {
   }
 
   /**
-   * Return the total response time.
-   *
-   * @return total response time.
-   */
-  public double calculateAverageResponseTime() {
-    return ((double) this.totalResponseTime / this.totalNumOfProcesses);
-  }
-
-  /**
    * Return the calculated throughput.
    *
    * @return calculated throughput.
@@ -90,5 +81,14 @@ public class StatTracker {
    */
   public double calculateUtilization() {
     return (((double) this.totalBurstTime / this.totalElapsedTime * 100));
+  }
+
+  /**
+   * Return the total response time.
+   *
+   * @return total response time.
+   */
+  public double calculateAverageResponseTime() {
+    return ((double) this.totalResponseTime / this.totalNumOfProcesses);
   }
 }

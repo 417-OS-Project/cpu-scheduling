@@ -16,6 +16,17 @@ Total Burst Time: 179
 Empty Time: 159
 Throughput: 17.9
 CPU Utilization: 52.95858
-Average Waiting Time:
-Average Turnaround Time:
+Average Waiting Time: 7.8
+Average Turnaround Time: 25.7
 Average Response Time: 16+30+32/10 = 7.8
+
+SJF Manually Calculated
+Total Process: 10
+Elapsed Time: 338
+Total Burst Time: 179
+Empty Time: 159
+Throughput: 17.9
+CPU Utilization: 52.95858
+Average Waiting Time: 5.8
+Average Turnaround Time: 23.7
+Average Response Time: 16+2+40/10 = 5.8
