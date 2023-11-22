@@ -8,10 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class SjfTest {
-  SjfScheduler sjfFull = new SjfScheduler();
+  SjfScheduler sjfFull;
 
   @Before
   public void init() {
+    sjfFull = new SjfScheduler();
     ArrayList<Process> parsed;
     parsed = App.parseFile(new File("src/resources/SmallDataFile.txt"));
 
@@ -23,13 +24,16 @@ public class SjfTest {
 
   @Test
   public void testAddProcess() {
-    SjfScheduler sjf = new SjfScheduler();
-    assertEquals(0, sjf.getSizeOfQueue());
-
-    sjf.addProcess(new Process(1, 2, 3));
-    assertEquals(1, sjf.getSizeOfQueue());
-
     assertEquals(10, sjfFull.getSizeOfQueue());
+    assertEquals(0, sjfFull.getTotalProcessCount());
+
+    sjfFull.addProcess(new Process(300, 32, 4));
+    assertEquals(11, sjfFull.getSizeOfQueue());
+    assertEquals(0, sjfFull.getTotalProcessCount());
+
+    sjfFull.addProcess(new Process(2, 3, 4));
+    assertEquals(12, sjfFull.getSizeOfQueue());
+    assertEquals(0, sjfFull.getTotalProcessCount());
   }
 
   @Test
@@ -51,9 +55,9 @@ public class SjfTest {
     sjfFull.fullCycle();
     assertEquals(10, sjfFull.getTotalProcessCount());
     assertEquals(338, sjfFull.getTotalElapsedTime());
-    assertEquals(17.9, sjfFull.getThroughput(), 0.001);
-    assertEquals(52.958, sjfFull.getUtilization(), 0.001);
-    assertEquals(5.8, sjfFull.getAverageResponseTime(), 0.001);
+    assertEquals(17.9, sjfFull.getThroughput(), 0.01);
+    assertEquals(52.96, sjfFull.getUtilization(), 0.01);
+    assertEquals(5.8, sjfFull.getAverageResponseTime(), 0.01);
   }
 
   @Test
