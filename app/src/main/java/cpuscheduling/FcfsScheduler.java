@@ -149,4 +149,22 @@ public class FcfsScheduler {
   public Boolean canContinue() {
     return this.currentProcess != null || !this.queue.isEmpty();
   }
+
+  /**
+   * Return a string representation of this scheduler.
+   *
+   * @return string representation.
+   */
+  public String toString() {
+    String retString = "";
+
+    retString += "Total Process Count: " + this.getTotalProcessCount() + "\n";
+    retString += "Total Elapsed Time: " + this.getTotalElapsedTime() + "\n";
+    retString += "Throughput: " + this.getThroughput() + "\n";
+    retString += "CPU Utilization: " + this.getUtilization() + "\n";
+    // avg waiting
+    // avg turnaround
+    retString += "Average Response Time: " + this.getAverageResponseTime() + "\n";
+    return retString;
+  }
 }

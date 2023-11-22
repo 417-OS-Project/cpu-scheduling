@@ -73,4 +73,26 @@ public class FCFSTest {
     emptyFcfs.addProcess(new Process(1, 2, 3));
     assertTrue(emptyFcfs.canContinue());
   }
+
+  @Test
+  public void testToString() {
+    String str = fcfs.toString();
+    assertTrue(str.contains(String.valueOf(fcfs.getTotalProcessCount())));
+    assertTrue(str.contains(String.valueOf(fcfs.getTotalElapsedTime())));
+    assertTrue(str.contains(String.valueOf(fcfs.getThroughput())));
+    assertTrue(str.contains(String.valueOf(fcfs.getUtilization())));
+    // avg waiting time
+    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(fcfs.getAverageResponseTime())));
+
+    fcfs.fullCycle();
+    str = fcfs.toString();
+    assertTrue(str.contains(String.valueOf(fcfs.getTotalProcessCount())));
+    assertTrue(str.contains(String.valueOf(fcfs.getTotalElapsedTime())));
+    assertTrue(str.contains(String.valueOf(fcfs.getThroughput())));
+    assertTrue(str.contains(String.valueOf(fcfs.getUtilization())));
+    // avg waiting time
+    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(fcfs.getAverageResponseTime())));
+  }
 }
