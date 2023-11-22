@@ -109,4 +109,19 @@ public class ProcessTest {
     assertTrue(p1.toString().contains(Integer.toString(p1.getBurstTime())));
     assertTrue(p1.toString().contains(Integer.toString(p1.getPriority())));
   }
+
+  @Test
+  public void testClone() {
+    Process newProcess = new Process(1, 2, 3);
+    assertEquals(1, newProcess.getArrivalTime());
+    assertEquals(2, newProcess.getBurstTime());
+    assertEquals(3, newProcess.getPriority());
+
+    Process cloneProcess = newProcess.clone();
+    assertEquals(1, cloneProcess.getArrivalTime());
+    assertEquals(2, cloneProcess.getBurstTime());
+    assertEquals(3, cloneProcess.getPriority());
+
+    assertNotEquals(newProcess.getPid(), cloneProcess.getPid());
+  }
 }

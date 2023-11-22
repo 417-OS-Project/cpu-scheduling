@@ -70,16 +70,19 @@ public class App {
     ArrayList<Process> processCollection = parseFile(dataFile);
 
     FcfsScheduler fcfs = new FcfsScheduler();
+    SjfScheduler sjf = new SjfScheduler();
 
     while (!processCollection.isEmpty()) {
-      fcfs.addProcess(processCollection.get(0));
+      Process copyProcess = processCollection.get(0);
+      fcfs.addProcess(copyProcess.clone());
+      sjf.addProcess(copyProcess.clone());
       processCollection.remove(0);
     }
 
-    while (fcfs.canContinue()) {
-      fcfs.cycle();
-    }
+    fcfs.fullCycle();
+    sjf.fullCycle();
 
-    System.out.printf(fcfs.toString());
+    System.out.printf(fcfs + "\n");
+    System.out.printf(sjf + "\n");
   }
 }

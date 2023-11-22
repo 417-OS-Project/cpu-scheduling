@@ -70,4 +70,25 @@ public class SjfTest {
     sjf.addProcess(new Process(1, 1, 1));
     assertTrue(sjf.canContinue());
   }
+
+  @Test
+  public void testToString() {
+    String str = sjfFull.toString();
+
+    assertTrue(str.contains(String.valueOf(sjfFull.getTotalProcessCount())));
+    assertTrue(str.contains(String.valueOf(sjfFull.getTotalElapsedTime())));
+    assertTrue(str.contains(String.valueOf(sjfFull.getThroughput())));
+    assertTrue(str.contains(String.valueOf(sjfFull.getUtilization())));
+    // avg waiting time
+    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(sjfFull.getAverageResponseTime())));
+
+    assertTrue(str.contains(String.valueOf(sjfFull.getTotalProcessCount())));
+    assertTrue(str.contains(String.valueOf(sjfFull.getTotalElapsedTime())));
+    assertTrue(str.contains(String.valueOf(sjfFull.getThroughput())));
+    assertTrue(str.contains(String.valueOf(sjfFull.getUtilization())));
+    // avg waiting time
+    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(sjfFull.getAverageResponseTime())));
+  }
 }
