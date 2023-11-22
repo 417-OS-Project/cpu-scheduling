@@ -78,20 +78,6 @@ public class StatTrackerTest {
   }
 
   @Test
-  public void testResponseTime() {
-    Process p1 = new Process(0, 5, 4);
-    Process p2 = new Process(2, 2, 2);
-
-    for (int i = 0; i < 5; i++) {
-      stats.updateStats(p1);
-    }
-    stats.updateStats(p2);
-
-    // (0 + (5-2)) / 2 Total Processes
-    assertEquals(stats.calculateAverageResponseTime(), 1.5, 0.01);
-  }
-
-  @Test
   public void testWaitingTime() {
     Process p1 = new Process(0, 5, 4);
     Process p2 = new Process(2, 2, 2);
@@ -117,5 +103,47 @@ public class StatTrackerTest {
 
     // (0 + 3 + 0) / 3 Total Processes
     assertEquals(stats.calculateAverageWaitingTime(), 1, 0.01);
+  }
+
+  @Test
+  public void testTurnaroundTime() {
+    Process p1 = new Process(0, 5, 4);
+    Process p2 = new Process(2, 2, 2);
+
+    for (int i = 0; i < 5; i++) {
+      p1.decrementRemainingBurst();
+      stats.updateStats(p1);
+    }
+
+    for (int i = 0; i < 2; i++) {
+      p2.decrementRemainingBurst();
+      stats.updateStats(p2);
+    }
+
+    // (5 + 5) / 2
+    assertEquals(stats.calculateAverageTurnaroundTime(), 5, 0.01);
+
+    Process p3 = new Process(7, 3, 3);
+    for (int i = 0; i < 3; i++) {
+      p3.decrementRemainingBurst();
+      stats.updateStats(p3);
+    }
+
+    // (5 + 5 + 3) / 3 Total Processes
+    assertEquals(stats.calculateAverageTurnaroundTime(), 4.33, 0.01);
+  }
+
+  @Test
+  public void testResponseTime() {
+    Process p1 = new Process(0, 5, 4);
+    Process p2 = new Process(2, 2, 2);
+
+    for (int i = 0; i < 5; i++) {
+      stats.updateStats(p1);
+    }
+    stats.updateStats(p2);
+
+    // (0 + (5-2)) / 2 Total Processes
+    assertEquals(stats.calculateAverageResponseTime(), 1.5, 0.01);
   }
 }
