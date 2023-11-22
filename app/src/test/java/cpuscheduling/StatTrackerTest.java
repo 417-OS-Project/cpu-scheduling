@@ -96,12 +96,12 @@ public class StatTrackerTest {
     Process p1 = new Process(0, 5, 4);
     Process p2 = new Process(2, 2, 2);
 
-    for(int i = 0; i < 5; i++) {
+    for (int i = 0; i < 5; i++) {
       p1.decrementRemainingBurst();
       stats.updateStats(p1);
     }
 
-    for(int i = 0; i < 2; i++) {
+    for (int i = 0; i < 2; i++) {
       p2.decrementRemainingBurst();
       stats.updateStats(p2);
     }
@@ -110,7 +110,7 @@ public class StatTrackerTest {
     assertEquals(stats.calculateAverageWaitingTime(), 1.5, 0.01);
 
     Process p3 = new Process(7, 3, 3);
-    for(int i = 0; i < 3; i++) {
+    for (int i = 0; i < 3; i++) {
       p3.decrementRemainingBurst();
       stats.updateStats(p3);
     }

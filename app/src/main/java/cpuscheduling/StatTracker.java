@@ -16,9 +16,7 @@ public class StatTracker {
   /** The total response time of all processes. */
   private int totalResponseTime;
 
-  /**
-   * The total waiting time of all processes.
-   */
+  /** The total waiting time of all processes. */
   private int totalWaitingTime;
 
   /** List of process PIDs that have accessed the CPU. */
@@ -51,8 +49,9 @@ public class StatTracker {
         this.totalResponseTime += ((this.totalElapsedTime - 1) - process.getArrivalTime());
       }
 
-      if(process.getRemainingBurstTime() == 0) {
-        this.totalWaitingTime += ((this.totalElapsedTime) - process.getArrivalTime() - process.getBurstTime());
+      if (process.getRemainingBurstTime() == 0) {
+        this.totalWaitingTime +=
+            ((this.totalElapsedTime) - process.getArrivalTime() - process.getBurstTime());
       }
     }
   }

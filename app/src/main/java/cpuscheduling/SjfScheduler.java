@@ -154,6 +154,15 @@ public class SjfScheduler {
   }
 
   /**
+   * Return the average waiting time.
+   *
+   * @return average waiting time.
+   */
+  public double getAverageWaitingTime() {
+    return stats.calculateAverageWaitingTime();
+  }
+
+  /**
    * Return the average response time.
    *
    * @return average response time.
@@ -183,7 +192,7 @@ public class SjfScheduler {
     retString += "Total Elapsed Time: " + this.getTotalElapsedTime() + "\n";
     retString += "Throughput: " + this.getThroughput() + "\n";
     retString += "CPU Utilization: " + this.getUtilization() + "\n";
-    // avg waiting
+    retString += "Average Waiting Time: " + this.getAverageWaitingTime() + "\n";
     // avg turnaround
     retString += "Average Response Time: " + this.getAverageResponseTime() + "\n";
     return retString;
