@@ -21,6 +21,13 @@ public class FcfsScheduler {
     this.stats = new StatTracker();
   }
 
+  /** Fully cycle through this scheduler. */
+  public void fullCycle() {
+    while (canContinue()) {
+      cycle();
+    }
+  }
+
   /** Run one cycle of this scheduler. */
   public void cycle() {
     // TODO: Cut down on if statements
@@ -79,9 +86,6 @@ public class FcfsScheduler {
    * @return current process' remaining burst time.
    */
   public int getCurrentBurstRemaining() {
-    if (this.currentProcess == null) {
-      return -1;
-    }
     return this.currentProcess.getRemainingBurstTime();
   }
 
@@ -133,9 +137,9 @@ public class FcfsScheduler {
   /**
    * Utility function to determine if there is a current process or queue.
    *
-   * @return True if there is a current process or queue
+   * @return True if there is a current process or queue.
    */
   public Boolean canContinue() {
-    return this.currentProcess != null || this.getSizeOfQueue() != 0;
+    return this.currentProcess != null || !this.queue.isEmpty();
   }
 }
