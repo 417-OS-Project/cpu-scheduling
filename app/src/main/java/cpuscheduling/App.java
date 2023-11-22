@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /** Main application for the cpuscheduling package. */
@@ -82,7 +83,11 @@ public class App {
     fcfs.fullCycle();
     sjf.fullCycle();
 
+    System.out.print(
+        "First Come, First Served\n" + String.join("", Collections.nCopies(24, "-")) + "\n");
     System.out.printf(fcfs + "\n");
+
+    System.out.print("Shortest Job First\n" + String.join("", Collections.nCopies(24, "-")) + "\n");
     System.out.printf(sjf + "\n");
   }
 }
