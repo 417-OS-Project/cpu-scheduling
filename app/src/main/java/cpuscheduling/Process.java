@@ -1,7 +1,7 @@
 package cpuscheduling;
 
 /** Process class to store a process' data. */
-public class Process {
+public class Process implements Cloneable {
 
   /** Global counter for the process id number. */
   private static int PID_COUNTER = 1;
@@ -134,5 +134,21 @@ public class Process {
    */
   public String toString() {
     return String.format("%d %d %d %d", getPid(), getArrivalTime(), getBurstTime(), getPriority());
+  }
+
+  /**
+   * Clone the current process to another.
+   *
+   * @return cloned process.
+   */
+  @Override
+  public Process clone() {
+    try {
+      Process clone = (Process) super.clone();
+      clone = new Process(this.arrivalTime, this.burstTime, this.priority);
+      return clone;
+    } catch (CloneNotSupportedException e) {
+      throw new AssertionError();
+    }
   }
 }

@@ -1,6 +1,8 @@
 package cpuscheduling;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /** Shortest Job First (no preemption) scheduler. */
 public class SjfScheduler {
@@ -33,7 +35,7 @@ public class SjfScheduler {
 
   /** Run one cycle of this scheduler. */
   public void cycle() {
-    checkQueue();
+    updateQueue();
     if (this.currentProcess == null) {
       // Grab the element of the list with the shortest burst.
       if (!this.list.isEmpty()) {
@@ -70,7 +72,7 @@ public class SjfScheduler {
    */
   private Process getShortestProcess() {
     int pos = 0;
-    for (int i = 0; i < this.list.size(); i++) {
+    for (int i = 1; i < this.list.size(); i++) {
       if (this.list.get(pos).getRemainingBurstTime() > this.list.get(i).getRemainingBurstTime()) {
         pos = i;
       }
@@ -81,7 +83,7 @@ public class SjfScheduler {
   }
 
   /** Check the queue for a new Process arrival. */
-  private void checkQueue() {
+  private void updateQueue() {
     if (!this.queue.isEmpty()
         && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
       this.list.add(this.queue.remove());
@@ -166,6 +168,24 @@ public class SjfScheduler {
    * @return true if there is, false if not.
    */
   public Boolean canContinue() {
-    return !(this.currentProcess == null) || !this.queue.isEmpty() || !this.list.isEmpty();
+    return this.currentProcess != null || !this.queue.isEmpty() || !this.list.isEmpty();
+  }
+
+  /**
+   * Return a string representation of this scheduler.
+   *
+   * @return string representation.
+   */
+  public String toString() {
+    String retString = "";
+
+    retString += "Total Process Count: " + this.getTotalProcessCount() + "\n";
+    retString += "Total Elapsed Time: " + this.getTotalElapsedTime() + "\n";
+    retString += "Throughput: " + this.getThroughput() + "\n";
+    retString += "CPU Utilization: " + this.getUtilization() + "\n";
+    // avg waiting
+    // avg turnaround
+    retString += "Average Response Time: " + this.getAverageResponseTime() + "\n";
+    return retString;
   }
 }
