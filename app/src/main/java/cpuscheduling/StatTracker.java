@@ -31,6 +31,7 @@ public class StatTracker {
     this.totalElapsedTime = 0;
     this.totalBurstTime = 0;
     this.totalWaitingTime = 0;
+    this.totalTurnaroundTime = 0;
     this.totalResponseTime = 0;
     this.pidTrack = new ArrayList<>();
   }
