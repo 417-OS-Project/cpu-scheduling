@@ -163,6 +163,15 @@ public class SjfScheduler {
   }
 
   /**
+   * Return the average turnaround time.
+   *
+   * @return average turnaround time.
+   */
+  public double getAverageTurnaroundTime() {
+    return stats.calculateAverageTurnaroundTime();
+  }
+
+  /**
    * Return the average response time.
    *
    * @return average response time.
@@ -193,7 +202,7 @@ public class SjfScheduler {
     retString += "Throughput: " + this.getThroughput() + "\n";
     retString += "CPU Utilization: " + this.getUtilization() + "\n";
     retString += "Average Waiting Time: " + this.getAverageWaitingTime() + "\n";
-    // avg turnaround
+    retString += "Average Turnaround Time: " + this.getAverageTurnaroundTime() + "\n";
     retString += "Average Response Time: " + this.getAverageResponseTime() + "\n";
     return retString;
   }
