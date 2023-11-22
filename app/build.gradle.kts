@@ -75,6 +75,10 @@ pmd {
     isConsoleOutput = true
 }
 
+tasks.pmdTest {
+    enabled = false
+}
+
 tasks.withType<Pmd>().configureEach {
     ignoreFailures = true
 }
