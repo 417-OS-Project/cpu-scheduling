@@ -21,6 +21,11 @@ public class SjfScheduler {
     this.stats = new StatTracker();
   }
 
+  /** Run the scheduler until it cannot continue. */
+  public void fullCycle() {
+    return;
+  }
+
   /** Run one cycle of this scheduler. */
   public void cycle() {
     return;
@@ -77,6 +82,6 @@ public class SjfScheduler {
    * @return true if there is, false if not.
    */
   public Boolean canContinue() {
-    return true;
+    return !(this.currentProcess == null) || !this.queue.isEmpty();
   }
 }
