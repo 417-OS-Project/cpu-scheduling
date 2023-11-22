@@ -30,11 +30,9 @@ public class FcfsScheduler {
 
   /** Run one cycle of this scheduler. */
   public void cycle() {
-    // TODO: Cut down on if statements
     if (this.currentProcess == null) {
       // Grab top of queue and continue
-      if (this.getSizeOfQueue() != 0
-          && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
+      if (canPop()) {
         this.currentProcess = this.queue.remove();
       } else {
         // The null case
@@ -46,8 +44,7 @@ public class FcfsScheduler {
     // No more cycles for current process
     if (this.currentProcess.getRemainingBurstTime() == 0) {
       this.currentProcess = null;
-      if (this.canContinue()
-          && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
+      if (canPop()) {
         this.currentProcess = this.queue.remove();
       } else if (this.queue.isEmpty()) {
         // Nothing left to do
@@ -60,6 +57,16 @@ public class FcfsScheduler {
 
     this.currentProcess.decrementRemainingBurst();
     stats.updateStats(this.currentProcess);
+  }
+
+  /**
+   * Determine if the top of the stack is ready to pop.
+   *
+   * @return true if there is an element and its arrival time has occurred.
+   */
+  private Boolean canPop() {
+    return !this.queue.isEmpty()
+        && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime();
   }
 
   /**
