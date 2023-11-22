@@ -46,8 +46,5 @@ Average Turnaround Time: 23.7
 Average Response Time: 5.8
 ```
 
-## Development Push/Merge Instructions
-Refer to [CONTRIBUTING.md](CONTRIBUTING.md)
-
 ## Tools Used
 
