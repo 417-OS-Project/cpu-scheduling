@@ -21,13 +21,18 @@ public class FcfsScheduler {
     this.stats = new StatTracker();
   }
 
+  /** Fully cycle through this scheduler. */
+  public void fullCycle() {
+    while (canContinue()) {
+      cycle();
+    }
+  }
+
   /** Run one cycle of this scheduler. */
   public void cycle() {
-    // TODO: Cut down on if statements
     if (this.currentProcess == null) {
       // Grab top of queue and continue
-      if (this.getSizeOfQueue() != 0
-          && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
+      if (canPop()) {
         this.currentProcess = this.queue.remove();
       } else {
         // The null case
@@ -39,8 +44,7 @@ public class FcfsScheduler {
     // No more cycles for current process
     if (this.currentProcess.getRemainingBurstTime() == 0) {
       this.currentProcess = null;
-      if (this.canContinue()
-          && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
+      if (canPop()) {
         this.currentProcess = this.queue.remove();
       } else if (this.queue.isEmpty()) {
         // Nothing left to do
@@ -53,6 +57,16 @@ public class FcfsScheduler {
 
     this.currentProcess.decrementRemainingBurst();
     stats.updateStats(this.currentProcess);
+  }
+
+  /**
+   * Determine if the top of the stack is ready to pop.
+   *
+   * @return true if there is an element and its arrival time has occurred.
+   */
+  private Boolean canPop() {
+    return !this.queue.isEmpty()
+        && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime();
   }
 
   /**
@@ -79,9 +93,6 @@ public class FcfsScheduler {
    * @return current process' remaining burst time.
    */
   public int getCurrentBurstRemaining() {
-    if (this.currentProcess == null) {
-      return -1;
-    }
     return this.currentProcess.getRemainingBurstTime();
   }
 
@@ -133,9 +144,27 @@ public class FcfsScheduler {
   /**
    * Utility function to determine if there is a current process or queue.
    *
-   * @return True if there is a current process or queue
+   * @return True if there is a current process or queue.
    */
   public Boolean canContinue() {
-    return this.currentProcess != null || this.getSizeOfQueue() != 0;
+    return this.currentProcess != null || !this.queue.isEmpty();
+  }
+
+  /**
+   * Return a string representation of this scheduler.
+   *
+   * @return string representation.
+   */
+  public String toString() {
+    String retString = "";
+
+    retString += "Total Process Count: " + this.getTotalProcessCount() + "\n";
+    retString += "Total Elapsed Time: " + this.getTotalElapsedTime() + "\n";
+    retString += "Throughput: " + this.getThroughput() + "\n";
+    retString += "CPU Utilization: " + this.getUtilization() + "\n";
+    // avg waiting
+    // avg turnaround
+    retString += "Average Response Time: " + this.getAverageResponseTime() + "\n";
+    return retString;
   }
 }

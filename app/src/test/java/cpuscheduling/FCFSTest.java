@@ -2,85 +2,97 @@ package cpuscheduling;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
 public class FCFSTest {
-  ArrayList<Process> list = new ArrayList<>();
+  FcfsScheduler fcfs;
 
   @Before
   public void init() {
-    list.add(new Process(0, 24, 1));
-    list.add(new Process(0, 3, 6));
-    list.add(new Process(0, 4, 8));
+    fcfs = new FcfsScheduler();
+    ArrayList<Process> parsed;
+    parsed = App.parseFile(new File("src/resources/SmallDataFile.txt"));
+
+    while (!parsed.isEmpty()) {
+      fcfs.addProcess(parsed.get(0));
+      parsed.remove(0);
+    }
   }
 
   @Test
   public void testAddProcess() {
-    FcfsScheduler fcfs = new FcfsScheduler();
-    assertEquals(0, fcfs.getSizeOfQueue());
-
-    fcfs.addProcess(new Process(3, 4, 5));
-    assertEquals(1, fcfs.getSizeOfQueue());
+    assertEquals(10, fcfs.getSizeOfQueue());
     assertEquals(0, fcfs.getTotalProcessCount());
 
-    FcfsScheduler second = new FcfsScheduler();
-    for (Process process : list) {
-      second.addProcess(process);
-    }
-    assertEquals(3, second.getSizeOfQueue());
-    assertEquals(0, second.getTotalProcessCount());
+    fcfs.addProcess(new Process(3, 4, 5));
+    assertEquals(11, fcfs.getSizeOfQueue());
+    assertEquals(0, fcfs.getTotalProcessCount());
+
+    fcfs.addProcess(new Process(2, 3, 4));
+    assertEquals(12, fcfs.getSizeOfQueue());
+    assertEquals(0, fcfs.getTotalProcessCount());
   }
 
   @Test
-  public void testCycle() {
-    FcfsScheduler fcfs = new FcfsScheduler();
-    assertEquals(0, fcfs.getSizeOfQueue());
-    assertEquals(0, fcfs.getTotalElapsedTime());
-    assertEquals(0, fcfs.getTotalProcessCount());
-    assertFalse(fcfs.canContinue());
-
-    for (Process process : list) {
-      fcfs.addProcess(process);
-    }
-    assertEquals(3, fcfs.getSizeOfQueue());
+  public void testStats() {
     assertEquals(0, fcfs.getTotalProcessCount());
     assertEquals(0, fcfs.getTotalElapsedTime());
-    assertTrue(fcfs.canContinue());
 
     fcfs.cycle();
-    assertEquals(2, fcfs.getSizeOfQueue());
-    assertEquals(1, fcfs.getTotalProcessCount());
-    assertEquals(23, fcfs.getCurrentBurstRemaining());
+    assertEquals(0, fcfs.getTotalProcessCount());
     assertEquals(1, fcfs.getTotalElapsedTime());
 
-    for (int i = 0; i < 23; i++) {
+    for (int i = 0; i < 10; i++) {
       fcfs.cycle();
     }
-    assertEquals(0, fcfs.getCurrentBurstRemaining());
-    assertEquals(2, fcfs.getSizeOfQueue());
+    assertEquals(21, fcfs.getCurrentBurstRemaining());
     assertEquals(1, fcfs.getTotalProcessCount());
-    assertEquals(24, fcfs.getTotalElapsedTime());
-    assertTrue(fcfs.canContinue());
+    assertEquals(11, fcfs.getTotalElapsedTime());
 
-    fcfs.cycle();
-    assertEquals(2, fcfs.getCurrentBurstRemaining());
-    assertEquals(1, fcfs.getSizeOfQueue());
-    assertEquals(2, fcfs.getTotalProcessCount());
-    assertTrue(fcfs.canContinue());
+    fcfs.fullCycle();
 
-    for (int i = 0; i < 3; i++) {
-      fcfs.cycle();
-    }
-    assertEquals(3, fcfs.getCurrentBurstRemaining());
-    assertEquals(0, fcfs.getSizeOfQueue());
-    assertEquals(3, fcfs.getTotalProcessCount());
-    assertTrue(fcfs.canContinue());
+    assertEquals(10, fcfs.getTotalProcessCount());
+    assertEquals(338, fcfs.getTotalElapsedTime());
+    assertEquals(17.9, fcfs.getThroughput(), 0.01);
+    assertEquals(52.96, fcfs.getUtilization(), 0.01);
+    assertEquals(7.8, fcfs.getAverageResponseTime(), 0.01);
+  }
 
-    for (int i = 0; i < 3; i++) {
-      fcfs.cycle();
-    }
-    assertEquals(0, fcfs.getCurrentBurstRemaining());
+  @Test
+  public void testCanContinue() {
+    assertTrue(fcfs.canContinue());
+    fcfs.fullCycle();
+    assertFalse(fcfs.canContinue());
+
+    FcfsScheduler emptyFcfs = new FcfsScheduler();
+    assertFalse(emptyFcfs.canContinue());
+
+    emptyFcfs.addProcess(new Process(1, 2, 3));
+    assertTrue(emptyFcfs.canContinue());
+  }
+
+  @Test
+  public void testToString() {
+    String str = fcfs.toString();
+    assertTrue(str.contains(String.valueOf(fcfs.getTotalProcessCount())));
+    assertTrue(str.contains(String.valueOf(fcfs.getTotalElapsedTime())));
+    assertTrue(str.contains(String.valueOf(fcfs.getThroughput())));
+    assertTrue(str.contains(String.valueOf(fcfs.getUtilization())));
+    // avg waiting time
+    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(fcfs.getAverageResponseTime())));
+
+    fcfs.fullCycle();
+    str = fcfs.toString();
+    assertTrue(str.contains(String.valueOf(fcfs.getTotalProcessCount())));
+    assertTrue(str.contains(String.valueOf(fcfs.getTotalElapsedTime())));
+    assertTrue(str.contains(String.valueOf(fcfs.getThroughput())));
+    assertTrue(str.contains(String.valueOf(fcfs.getUtilization())));
+    // avg waiting time
+    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(fcfs.getAverageResponseTime())));
   }
 }
