@@ -34,7 +34,26 @@ public class SjfTest {
 
   @Test
   public void testStats() {
-    assert false;
+    assertEquals(0, sjfFull.getTotalProcessCount());
+    assertEquals(0, sjfFull.getTotalElapsedTime());
+
+    sjfFull.cycle();
+    assertEquals(0, sjfFull.getTotalProcessCount());
+    assertEquals(1, sjfFull.getTotalElapsedTime());
+
+    for (int i = 0; i < 10; i++) {
+      sjfFull.cycle();
+    }
+    assertEquals(1, sjfFull.getTotalProcessCount());
+    assertEquals(11, sjfFull.getTotalElapsedTime());
+    assertEquals(21, sjfFull.getCurrentBurstRemaining());
+
+    sjfFull.fullCycle();
+    assertEquals(10, sjfFull.getTotalProcessCount());
+    assertEquals(338, sjfFull.getTotalElapsedTime());
+    assertEquals(17.9, sjfFull.getThroughput(), 0.001);
+    assertEquals(52.958, sjfFull.getUtilization(), 0.001);
+    assertEquals(5.8, sjfFull.getAverageResponseTime(), 0.001);
   }
 
   @Test
