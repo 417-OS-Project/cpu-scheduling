@@ -58,6 +58,8 @@ public class FCFSTest {
     assertEquals(338, fcfs.getTotalElapsedTime());
     assertEquals(17.9, fcfs.getThroughput(), 0.01);
     assertEquals(52.96, fcfs.getUtilization(), 0.01);
+    assertEquals(7.8, fcfs.getAverageWaitingTime(), 0.01);
+    assertEquals(25.7, fcfs.getAverageTurnaroundTime(), 0.01);
     assertEquals(7.8, fcfs.getAverageResponseTime(), 0.01);
   }
 
@@ -81,8 +83,8 @@ public class FCFSTest {
     assertTrue(str.contains(String.valueOf(fcfs.getTotalElapsedTime())));
     assertTrue(str.contains(String.valueOf(fcfs.getThroughput())));
     assertTrue(str.contains(String.valueOf(fcfs.getUtilization())));
-    // avg waiting time
-    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(fcfs.getAverageWaitingTime())));
+    assertTrue(str.contains(String.valueOf(fcfs.getAverageTurnaroundTime())));
     assertTrue(str.contains(String.valueOf(fcfs.getAverageResponseTime())));
 
     fcfs.fullCycle();
@@ -91,8 +93,8 @@ public class FCFSTest {
     assertTrue(str.contains(String.valueOf(fcfs.getTotalElapsedTime())));
     assertTrue(str.contains(String.valueOf(fcfs.getThroughput())));
     assertTrue(str.contains(String.valueOf(fcfs.getUtilization())));
-    // avg waiting time
-    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(fcfs.getAverageWaitingTime())));
+    assertTrue(str.contains(String.valueOf(fcfs.getAverageTurnaroundTime())));
     assertTrue(str.contains(String.valueOf(fcfs.getAverageResponseTime())));
   }
 }

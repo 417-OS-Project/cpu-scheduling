@@ -57,6 +57,8 @@ public class SjfTest {
     assertEquals(338, sjfFull.getTotalElapsedTime());
     assertEquals(17.9, sjfFull.getThroughput(), 0.01);
     assertEquals(52.96, sjfFull.getUtilization(), 0.01);
+    assertEquals(5.8, sjfFull.getAverageWaitingTime(), 0.01);
+    assertEquals(23.7, sjfFull.getAverageTurnaroundTime(), 0.01);
     assertEquals(5.8, sjfFull.getAverageResponseTime(), 0.01);
   }
 
@@ -79,16 +81,16 @@ public class SjfTest {
     assertTrue(str.contains(String.valueOf(sjfFull.getTotalElapsedTime())));
     assertTrue(str.contains(String.valueOf(sjfFull.getThroughput())));
     assertTrue(str.contains(String.valueOf(sjfFull.getUtilization())));
-    // avg waiting time
-    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(sjfFull.getAverageWaitingTime())));
+    assertTrue(str.contains(String.valueOf(sjfFull.getAverageTurnaroundTime())));
     assertTrue(str.contains(String.valueOf(sjfFull.getAverageResponseTime())));
 
     assertTrue(str.contains(String.valueOf(sjfFull.getTotalProcessCount())));
     assertTrue(str.contains(String.valueOf(sjfFull.getTotalElapsedTime())));
     assertTrue(str.contains(String.valueOf(sjfFull.getThroughput())));
     assertTrue(str.contains(String.valueOf(sjfFull.getUtilization())));
-    // avg waiting time
-    // avg turnaround time
+    assertTrue(str.contains(String.valueOf(sjfFull.getAverageWaitingTime())));
+    assertTrue(str.contains(String.valueOf(sjfFull.getAverageTurnaroundTime())));
     assertTrue(str.contains(String.valueOf(sjfFull.getAverageResponseTime())));
   }
 }

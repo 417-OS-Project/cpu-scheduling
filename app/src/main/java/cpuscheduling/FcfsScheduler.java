@@ -133,6 +133,24 @@ public class FcfsScheduler {
   }
 
   /**
+   * Return the average waiting time.
+   *
+   * @return average waiting time.
+   */
+  public double getAverageWaitingTime() {
+    return stats.calculateAverageWaitingTime();
+  }
+
+  /**
+   * Return the average turnaround time.
+   *
+   * @return average turnaround time.
+   */
+  public double getAverageTurnaroundTime() {
+    return stats.calculateAverageTurnaroundTime();
+  }
+
+  /**
    * Return the average response time.
    *
    * @return average response time.
@@ -162,8 +180,8 @@ public class FcfsScheduler {
     retString += "Total Elapsed Time: " + this.getTotalElapsedTime() + "\n";
     retString += "Throughput: " + this.getThroughput() + "\n";
     retString += "CPU Utilization: " + this.getUtilization() + "\n";
-    // avg waiting
-    // avg turnaround
+    retString += "Average Waiting Time: " + this.getAverageWaitingTime() + "\n";
+    retString += "Average Turnaround Time: " + this.getAverageTurnaroundTime() + "\n";
     retString += "Average Response Time: " + this.getAverageResponseTime() + "\n";
     return retString;
   }
