@@ -45,6 +45,3 @@ Average Waiting Time: 5.8
 Average Turnaround Time: 23.7
 Average Response Time: 5.8
 ```
-
-## Tools Used
-
