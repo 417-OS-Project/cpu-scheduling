@@ -16,6 +16,11 @@ public class StatTracker {
   /** The total response time of all processes. */
   private int totalResponseTime;
 
+  /**
+   * The total waiting time of all processes.
+   */
+  private int totalWaitingTime;
+
   /** List of process PIDs that have accessed the CPU. */
   private ArrayList<Integer> pidTrack;
 
@@ -25,6 +30,7 @@ public class StatTracker {
     this.totalElapsedTime = 0;
     this.totalBurstTime = 0;
     this.totalResponseTime = 0;
+    this.totalWaitingTime = 0;
     this.pidTrack = new ArrayList<>();
   }
 
@@ -43,6 +49,10 @@ public class StatTracker {
         this.pidTrack.add(process.getPid());
         this.totalNumOfProcesses++;
         this.totalResponseTime += ((this.totalElapsedTime - 1) - process.getArrivalTime());
+      }
+
+      if(process.getRemainingBurstTime() == 0) {
+        this.totalWaitingTime += ((this.totalElapsedTime) - process.getArrivalTime() - process.getBurstTime());
       }
     }
   }
@@ -84,11 +94,20 @@ public class StatTracker {
   }
 
   /**
-   * Return the total response time.
+   * Return the average response time.
    *
-   * @return total response time.
+   * @return average response time.
    */
   public double calculateAverageResponseTime() {
     return ((double) this.totalResponseTime / this.totalNumOfProcesses);
+  }
+
+  /**
+   * Return the average waiting time.
+   *
+   * @return average waiting time.
+   */
+  public double calculateAverageWaitingTime() {
+    return ((double) this.totalWaitingTime / this.totalNumOfProcesses);
   }
 }
