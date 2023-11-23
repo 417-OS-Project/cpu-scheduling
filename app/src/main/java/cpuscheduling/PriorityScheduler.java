@@ -1,8 +1,6 @@
 package cpuscheduling;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 /** Priority (with Preemption) scheduler. */
 public class PriorityScheduler {
@@ -35,7 +33,7 @@ public class PriorityScheduler {
 
   /** Conduct one cycle of this scheduler. */
   public void cycle() {
-    updateList();
+    updatePriority();
     if (this.currentProcess == null) {
       if (!this.list.isEmpty()) {
         this.currentProcess = this.list.remove(0);
@@ -65,11 +63,40 @@ public class PriorityScheduler {
   }
 
   /** Update the list when a new Process arrives. */
-  private void updateList() {
+  private void updatePriority() {
     if (!this.queue.isEmpty()
         && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
-      this.list.add(this.queue.remove());
+      Process toAdd = this.queue.remove();
+
+      if(this.currentProcess == null) {
+        // Will be set in cycle
+        this.list.add(toAdd);
+      }
+      else {
+        // Lower is a higher priority
+        if (toAdd.getPriority() < this.currentProcess.getPriority()) {
+          this.list.add(this.currentProcess);
+          this.currentProcess = toAdd;
+        } else {
+          this.list.add(toAdd);
+        }
+      }
+      sortList();
     }
+  }
+
+  /**
+   * Sort the list based on Process' priority number.
+   */
+  private void sortList() {
+    Collections.sort(this.list, new Comparator<Process>() {
+      @Override
+      public int compare(Process o1, Process o2) {
+        if(o1.getPriority() == o2.getPriority()) { return 0; }
+        // RHS should be front
+        return o1.getPriority() > o2.getPriority() ? 1 : -1;
+      }
+    });
   }
 
   /**
@@ -115,6 +142,51 @@ public class PriorityScheduler {
    */
   public int getTotalElapsedTime() {
     return stats.getTotalElapsedTime();
+  }
+
+  /**
+   * Return the calculated throughput.
+   *
+   * @return throughput.
+   */
+  public double getThroughput() {
+    return stats.calculateThroughput();
+  }
+
+  /**
+   * Return the calculated CPU utilization.
+   *
+   * @return CPU utilization.
+   */
+  public double getUtilization() {
+    return stats.calculateUtilization();
+  }
+
+  /**
+   * Return the average waiting time.
+   *
+   * @return average waiting time.
+   */
+  public double getAverageWaitingTime() {
+    return stats.calculateAverageWaitingTime();
+  }
+
+  /**
+   * Return the average turnaround time.
+   *
+   * @return average turnaround time.
+   */
+  public double getAverageTurnaroundTime() {
+    return stats.calculateAverageTurnaroundTime();
+  }
+
+  /**
+   * Return the average response time.
+   *
+   * @return average response time.
+   */
+  public double getAverageResponseTime() {
+    return stats.calculateAverageResponseTime();
   }
 
   /**

@@ -49,5 +49,12 @@ public class PriorityTest {
     assertEquals(21, pFull.getCurrentBurstRemaining());
 
     pFull.fullCycle();
+    assertEquals(10, pFull.getTotalProcessCount());
+    assertEquals(338, pFull.getTotalElapsedTime());
+    assertEquals(17.9, pFull.getThroughput(), 0.01);
+    // Utilization
+    assertEquals(9, pFull.getAverageWaitingTime(), 0.01);
+    assertEquals(26.9, pFull.getAverageTurnaroundTime(), 0.01);;
+    // Response time
   }
 }
