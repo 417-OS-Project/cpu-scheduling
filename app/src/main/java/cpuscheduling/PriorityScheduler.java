@@ -1,6 +1,10 @@
 package cpuscheduling;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /** Priority (with Preemption) scheduler. */
 public class PriorityScheduler {
@@ -26,7 +30,7 @@ public class PriorityScheduler {
 
   /** Run the scheduler until it cannot anymore. */
   public void fullCycle() {
-    while(canContinue()) {
+    while (canContinue()) {
       cycle();
     }
   }
@@ -37,8 +41,7 @@ public class PriorityScheduler {
 
     if (this.currentProcess == null) {
       if (!this.list.isEmpty()) {
-        this.currentProcess = this.list.get(0);
-        this.list.remove(0);
+        this.currentProcess = this.list.remove(0);
       } else {
         // The null case
         stats.updateStats(null);
@@ -50,8 +53,7 @@ public class PriorityScheduler {
     if (this.currentProcess.getRemainingBurstTime() == 0) {
       this.currentProcess = null;
       if (!this.list.isEmpty()) {
-        this.currentProcess = this.list.get(0);
-        this.list.remove(0);
+        this.currentProcess = this.list.remove(0);
       } else if (!canContinue()) {
         // Nothing left to do
         return;
@@ -71,8 +73,8 @@ public class PriorityScheduler {
         && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
       Process toAdd = this.queue.remove();
 
-      if(this.currentProcess != null && this.currentProcess.getRemainingBurstTime() != 0) {
-        if(toAdd.getPriority() < this.currentProcess.getPriority()) {
+      if (this.currentProcess != null && this.currentProcess.getRemainingBurstTime() != 0) {
+        if (toAdd.getPriority() < this.currentProcess.getPriority()) {
           this.list.add(this.currentProcess);
           this.currentProcess = toAdd;
           sortList();
@@ -84,18 +86,20 @@ public class PriorityScheduler {
     }
   }
 
-  /**
-   * Sort the list based on Process' priority number.
-   */
+  /** Sort the list based on Process' priority number. */
   private void sortList() {
-    Collections.sort(this.list, new Comparator<Process>() {
-      @Override
-      public int compare(Process o1, Process o2) {
-        if(o1.getPriority() == o2.getPriority()) { return 0; }
-        // RHS should be front
-        return o1.getPriority() > o2.getPriority() ? 1 : -1;
-      }
-    });
+    Collections.sort(
+        this.list,
+        new Comparator<Process>() {
+          @Override
+          public int compare(Process o1, Process o2) {
+            if (o1.getPriority() == o2.getPriority()) {
+              return 0;
+            }
+            // RHS should be front
+            return o1.getPriority() > o2.getPriority() ? 1 : -1;
+          }
+        });
   }
 
   /**

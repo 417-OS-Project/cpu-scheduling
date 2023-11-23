@@ -93,7 +93,8 @@ public class App {
     System.out.print("Shortest Job First\n" + String.join("", Collections.nCopies(24, "-")) + "\n");
     System.out.printf(sjf + "\n");
 
-    System.out.print("Priority with Preemption\n" + String.join("", Collections.nCopies(24, "-")) + "\n");
+    System.out.print(
+        "Priority with Preemption\n" + String.join("", Collections.nCopies(24, "-")) + "\n");
     System.out.printf(pri.toString());
   }
 }

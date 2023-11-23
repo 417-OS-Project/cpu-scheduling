@@ -54,7 +54,8 @@ public class PriorityTest {
     assertEquals(17.9, pFull.getThroughput(), 0.01);
     assertEquals(52.96, pFull.getUtilization(), 0.01);
     assertEquals(9, pFull.getAverageWaitingTime(), 0.01);
-    assertEquals(26.9, pFull.getAverageTurnaroundTime(), 0.01);;
+    assertEquals(26.9, pFull.getAverageTurnaroundTime(), 0.01);
+    ;
     assertEquals(9, pFull.getAverageResponseTime(), 0.01);
   }
 
