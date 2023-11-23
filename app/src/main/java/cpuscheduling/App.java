@@ -72,16 +72,19 @@ public class App {
 
     FcfsScheduler fcfs = new FcfsScheduler();
     SjfScheduler sjf = new SjfScheduler();
+    PriorityScheduler pri = new PriorityScheduler();
 
     while (!processCollection.isEmpty()) {
       Process copyProcess = processCollection.get(0);
       fcfs.addProcess(copyProcess.clone());
       sjf.addProcess(copyProcess.clone());
+      pri.addProcess(copyProcess.clone());
       processCollection.remove(0);
     }
 
     fcfs.fullCycle();
     sjf.fullCycle();
+    pri.fullCycle();
 
     System.out.print(
         "First Come, First Served\n" + String.join("", Collections.nCopies(24, "-")) + "\n");
@@ -89,5 +92,8 @@ public class App {
 
     System.out.print("Shortest Job First\n" + String.join("", Collections.nCopies(24, "-")) + "\n");
     System.out.printf(sjf + "\n");
+
+    System.out.print("Priority with Preemption\n" + String.join("", Collections.nCopies(24, "-")) + "\n");
+    System.out.printf(pri.toString());
   }
 }

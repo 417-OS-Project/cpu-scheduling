@@ -33,7 +33,7 @@ Average Response Time: 16+2+40/10 = 5.8
 
 Priority Manually Calculated
 Total Process: 10
-Elapsed Time: 324
+Elapsed Time: 338
 Total Burst Time: 179
 Throughput: 17.9
 CPU Utilization:

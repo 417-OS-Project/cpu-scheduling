@@ -8,7 +8,7 @@ public class PriorityScheduler {
   private Queue<Process> queue;
 
   /** The process currently using the CPU. */
-  Process currentProcess;
+  private Process currentProcess;
 
   /** List of available processes. */
   private ArrayList<Process> list;
@@ -26,17 +26,19 @@ public class PriorityScheduler {
 
   /** Run the scheduler until it cannot anymore. */
   public void fullCycle() {
-    while (this.canContinue()) {
-      this.cycle();
+    while(canContinue()) {
+      cycle();
     }
   }
 
   /** Conduct one cycle of this scheduler. */
   public void cycle() {
     updatePriority();
+
     if (this.currentProcess == null) {
       if (!this.list.isEmpty()) {
-        this.currentProcess = this.list.remove(0);
+        this.currentProcess = this.list.get(0);
+        this.list.remove(0);
       } else {
         // The null case
         stats.updateStats(null);
@@ -48,7 +50,8 @@ public class PriorityScheduler {
     if (this.currentProcess.getRemainingBurstTime() == 0) {
       this.currentProcess = null;
       if (!this.list.isEmpty()) {
-        this.currentProcess = this.list.remove(0);
+        this.currentProcess = this.list.get(0);
+        this.list.remove(0);
       } else if (!canContinue()) {
         // Nothing left to do
         return;
@@ -68,19 +71,15 @@ public class PriorityScheduler {
         && this.queue.peek().getArrivalTime() <= this.stats.getTotalElapsedTime()) {
       Process toAdd = this.queue.remove();
 
-      if(this.currentProcess == null) {
-        // Will be set in cycle
-        this.list.add(toAdd);
-      }
-      else {
-        // Lower is a higher priority
-        if (toAdd.getPriority() < this.currentProcess.getPriority()) {
+      if(this.currentProcess != null && this.currentProcess.getRemainingBurstTime() != 0) {
+        if(toAdd.getPriority() < this.currentProcess.getPriority()) {
           this.list.add(this.currentProcess);
           this.currentProcess = toAdd;
-        } else {
-          this.list.add(toAdd);
+          sortList();
+          return;
         }
       }
+      this.list.add(toAdd);
       sortList();
     }
   }
@@ -196,5 +195,23 @@ public class PriorityScheduler {
    */
   public Boolean canContinue() {
     return this.currentProcess != null || !this.queue.isEmpty() || !this.list.isEmpty();
+  }
+
+  /**
+   * Return a string representation of this scheduler.
+   *
+   * @return string representation.
+   */
+  public String toString() {
+    String retString = "";
+
+    retString += "Total Process Count: " + this.getTotalProcessCount() + "\n";
+    retString += "Total Elapsed Time: " + this.getTotalElapsedTime() + "\n";
+    retString += "Throughput: " + this.getThroughput() + "\n";
+    retString += "CPU Utilization: " + this.getUtilization() + "\n";
+    retString += "Average Waiting Time: " + this.getAverageWaitingTime() + "\n";
+    retString += "Average Turnaround Time: " + this.getAverageTurnaroundTime() + "\n";
+    retString += "Average Response Time: " + this.getAverageResponseTime() + "\n";
+    return retString;
   }
 }

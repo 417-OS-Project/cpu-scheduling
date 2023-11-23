@@ -52,9 +52,30 @@ public class PriorityTest {
     assertEquals(10, pFull.getTotalProcessCount());
     assertEquals(338, pFull.getTotalElapsedTime());
     assertEquals(17.9, pFull.getThroughput(), 0.01);
-    // Utilization
+    assertEquals(52.96, pFull.getUtilization(), 0.01);
     assertEquals(9, pFull.getAverageWaitingTime(), 0.01);
     assertEquals(26.9, pFull.getAverageTurnaroundTime(), 0.01);;
-    // Response time
+    assertEquals(9, pFull.getAverageResponseTime(), 0.01);
+  }
+
+  @Test
+  public void testToString() {
+    String str = pFull.toString();
+
+    assertTrue(str.contains(String.valueOf(pFull.getTotalProcessCount())));
+    assertTrue(str.contains(String.valueOf(pFull.getTotalElapsedTime())));
+    assertTrue(str.contains(String.valueOf(pFull.getThroughput())));
+    assertTrue(str.contains(String.valueOf(pFull.getUtilization())));
+    assertTrue(str.contains(String.valueOf(pFull.getAverageWaitingTime())));
+    assertTrue(str.contains(String.valueOf(pFull.getAverageTurnaroundTime())));
+    assertTrue(str.contains(String.valueOf(pFull.getAverageResponseTime())));
+
+    assertTrue(str.contains(String.valueOf(pFull.getTotalProcessCount())));
+    assertTrue(str.contains(String.valueOf(pFull.getTotalElapsedTime())));
+    assertTrue(str.contains(String.valueOf(pFull.getThroughput())));
+    assertTrue(str.contains(String.valueOf(pFull.getUtilization())));
+    assertTrue(str.contains(String.valueOf(pFull.getAverageWaitingTime())));
+    assertTrue(str.contains(String.valueOf(pFull.getAverageTurnaroundTime())));
+    assertTrue(str.contains(String.valueOf(pFull.getAverageResponseTime())));
   }
 }
