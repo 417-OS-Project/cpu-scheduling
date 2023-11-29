@@ -33,6 +33,7 @@ application {
 
 tasks.jar {
     manifest.attributes["Main-Class"] = application.mainClass
+    archiveBaseName.set("scheduler")
 }
 
 /* Test Configurations */
