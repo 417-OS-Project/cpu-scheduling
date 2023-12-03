@@ -1,5 +1,8 @@
 package cpuscheduling;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -205,5 +208,18 @@ public class SjfScheduler {
     retString += "Average Turnaround Time: " + this.getAverageTurnaroundTime() + "\n";
     retString += "Average Response Time: " + this.getAverageResponseTime() + "\n";
     return retString;
+  }
+
+  /** Write the to string to a text file located in the reports/ directory. */
+  public void toFile() throws IOException {
+    File output = new File("reports");
+    if (!output.exists()) {
+      output.mkdir();
+    }
+
+    FileWriter file = new FileWriter("reports/sjf.txt");
+
+    file.write(this.toString());
+    file.close();
   }
 }

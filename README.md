@@ -24,7 +24,7 @@ file in the `app/build/libs/` directory.
 ## Sample Execution
 When this program is executed with `app/src/resources/SmallDataFile.txt` provided as the input file and 
 run with `java -jar scheduler.jar app/src/resources/SmallDataFile.txt`, 
-the following output will be generated:
+the following output will be written to console and to text files in the `app/reports` directory:
 ```
 First Come, First Served
 ------------------------
