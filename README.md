@@ -5,6 +5,9 @@ The algorithms included are as follows:
 2. SJF without Preemption
 3. Priority with Preemption
 
+## Contributors
+* Tony Griffin
+
 ## Requirements
 * [Java 11+](https://www.java.com/en/)
 * [Gradle](https://gradle.org/) (optional)
