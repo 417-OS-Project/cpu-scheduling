@@ -60,7 +60,7 @@ public class App {
    *
    * @param args containing a text file of process information.
    */
-  public static void main(String[] args) {
+  public static void main(String[] args) throws IOException {
     boolean noArg = args.length < 1;
     if (noArg) {
       System.out.println("File not provided");
@@ -96,5 +96,9 @@ public class App {
     System.out.print(
         "Priority with Preemption\n" + String.join("", Collections.nCopies(24, "-")) + "\n");
     System.out.printf(pri.toString());
+
+    fcfs.toFile();
+    pri.toFile();
+    sjf.toFile();
   }
 }
